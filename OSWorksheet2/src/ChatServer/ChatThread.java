@@ -8,7 +8,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-
 import Protocol.SimpleProtocol;
 
 public class ChatThread extends Thread {
@@ -35,24 +34,26 @@ public class ChatThread extends Thread {
 			System.out.println("client failed to establish connection with server at socket " + socketForClient);
 			e.printStackTrace();
 		}
+
 	}
     
 	public void run(){
-		while(true)
+		while(true) {
 			try {
 				if (!stopped) {
-		    			String currentMessage[] = interpretMessage();
-		    			if (currentMessage.length > 0) {
-		    				processMessage(currentMessage);
-		    			}
+					String currentMessage[] = interpretMessage();
+					if (currentMessage.length > 0) {
+						processMessage(currentMessage);
+					}
 				} else {
 					break;
 				}
-	    } catch (IllegalArgumentException e) {
-	    		System.out.println("Arguments passed by client not recognised");
-	    } catch (IOException e) {
-	    		System.out.println("Client could not be reached");
-	    }
+			} catch (IllegalArgumentException e) {
+				System.out.println("Arguments passed by client not recognised");
+			} catch (IOException e) {
+				System.out.println("Client could not be reached");
+			}
+		}
 	}
 	
 	public String [] interpretMessage() throws IOException {
@@ -60,24 +61,24 @@ public class ChatThread extends Thread {
         if (clientMessage != null) {
             return protocol.decodeMessage(clientMessage);
         } else {
-        		return new String [0];
+        	return new String [0];
         }
 		
 	}
 	
     public void processMessage(String [] message) throws IllegalArgumentException, IOException {
         if (message.length != 0) {
-        		if (message[0].equals("sign-in")) {
-        			signIn(message[1], message[2]);
-        		} else if (message[0].equals("sign-up")) {
-        			signUp(message[1], message[2]);
-        		} else if (message[0].equals("get-message")) {
-        			getMessage(Integer.parseInt(message[1]));
-        		} else if (message[0].equals("send-message")) {
-        			sendMessage(message[1]);
-        		} else {
-        			throw new IllegalArgumentException("Command identifier not recognised");
-        		}
+        	if (message[0].equals("sign-in")) {
+        		signIn(message[1], message[2]);
+        	} else if (message[0].equals("sign-up")) {
+        		signUp(message[1], message[2]);
+        	} else if (message[0].equals("get-message")) {
+        		getMessage(Integer.parseInt(message[1]));
+        	} else if (message[0].equals("send-message")) {
+        		sendMessage(message[1]);
+        	} else {
+        		throw new IllegalArgumentException("Command identifier not recognised");
+        	}
         }
     }
     
@@ -100,7 +101,8 @@ public class ChatThread extends Thread {
 	    if (server.checkUser(user)) {
 	        toClient.writeBytes(protocol.createMessage("sign-in", "true", "welcome back, user") + "\n");
 	    } else {
-	    		toClient.writeBytes(protocol.createMessage("sign-in", "false", "password/username does not match") + "\n");
+	    	toClient.writeBytes(protocol.createMessage("sign-in", "false", "password/username does not match") + "\n");
+	    	stopThread();
 	    }
 	}
 	 
