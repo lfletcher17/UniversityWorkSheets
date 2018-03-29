@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_oioihanoi" default="compile.module.oioihanoi">
+  <dirname property="module.oioihanoi.basedir" file="${ant.file.module_oioihanoi}"/>
+  
+  <property name="module.jdk.home.oioihanoi" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.oioihanoi" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.oioihanoi" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.oioihanoi" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="oioihanoi.output.dir" value="${module.oioihanoi.basedir}/out/production/Team Hanoi - Group Project"/>
+  <property name="oioihanoi.testoutput.dir" value="${module.oioihanoi.basedir}/out/test/Team Hanoi - Group Project"/>
+  
+  <path id="oioihanoi.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="oioihanoi.module.production.classpath">
+    <path refid="${module.jdk.classpath.oioihanoi}"/>
+    <path refid="library.javax.mail.classpath"/>
+    <path refid="library.postgresql-42.2.1.classpath"/>
+    <path refid="library.jbcrypt-0.3m.classpath"/>
+  </path>
+  
+  <path id="oioihanoi.runtime.production.module.classpath">
+    <pathelement location="${oioihanoi.output.dir}"/>
+    <path refid="library.javax.mail.classpath"/>
+    <path refid="library.postgresql-42.2.1.classpath"/>
+    <path refid="library.jbcrypt-0.3m.classpath"/>
+  </path>
+  
+  <path id="oioihanoi.module.classpath">
+    <path refid="${module.jdk.classpath.oioihanoi}"/>
+    <pathelement location="${oioihanoi.output.dir}"/>
+    <path refid="library.javax.mail.classpath"/>
+    <path refid="library.postgresql-42.2.1.classpath"/>
+    <path refid="library.jbcrypt-0.3m.classpath"/>
+  </path>
+  
+  <path id="oioihanoi.runtime.module.classpath">
+    <pathelement location="${oioihanoi.testoutput.dir}"/>
+    <pathelement location="${oioihanoi.output.dir}"/>
+    <path refid="library.javax.mail.classpath"/>
+    <path refid="library.postgresql-42.2.1.classpath"/>
+    <path refid="library.jbcrypt-0.3m.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.oioihanoi">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.oioihanoi">
+    <patternset refid="excluded.from.module.oioihanoi"/>
+  </patternset>
+  
+  <path id="oioihanoi.module.sourcepath">
+    <dirset dir="${module.oioihanoi.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.oioihanoi" depends="compile.module.oioihanoi.production,compile.module.oioihanoi.tests" description="Compile module OiOiHanoi"/>
+  
+  <target name="compile.module.oioihanoi.production" depends="register.custom.compilers" description="Compile module OiOiHanoi; production classes">
+    <mkdir dir="${oioihanoi.output.dir}"/>
+    <javac2 destdir="${oioihanoi.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.oioihanoi}/javac">
+      <compilerarg line="${compiler.args.oioihanoi}"/>
+      <bootclasspath refid="oioihanoi.module.bootclasspath"/>
+      <classpath refid="oioihanoi.module.production.classpath"/>
+      <src refid="oioihanoi.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.oioihanoi"/>
+    </javac2>
+    
+    <copy todir="${oioihanoi.output.dir}">
+      <fileset dir="${module.oioihanoi.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.oioihanoi.tests" depends="register.custom.compilers,compile.module.oioihanoi.production" description="compile module OiOiHanoi; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.oioihanoi" description="cleanup module">
+    <delete dir="${oioihanoi.output.dir}"/>
+    <delete dir="${oioihanoi.testoutput.dir}"/>
+  </target>
+</project>
