@@ -1,0 +1,36 @@
+CREATE TABLE artist
+(
+  id SERIAL NOT NULL CONSTRAINT artist_id_pkey PRIMARY KEY,
+  artist_name TEXT,
+  CONSTRAINT uq_artist UNIQUE(artist_name)
+);
+
+CREATE TABLE album
+(
+  id SERIAL NOT NULL CONSTRAINT album_id_pkey PRIMARY KEY,
+  artist_id INTEGER NOT NULL CONSTRAINT artist_id_fkey REFERENCES artist,
+  album_name TEXT,
+  CONSTRAINT uq_album_artist UNIQUE(artist_id, album_name)
+);
+
+CREATE TABLE song
+(
+  id SERIAL NOT NULL CONSTRAINT song_pkey PRIMARY KEY,
+  song_name TEXT NOT NULL,
+  album_id INTEGER NOT NULL CONSTRAINT album_id_fkey REFERENCES album,
+  CONSTRAINT uq_song_album_artist UNIQUE(song_name, album_id)
+);
+
+CREATE TABLE tag
+(
+  id SERIAL NOT NULL CONSTRAINT tag_pkey PRIMARY KEY,
+  tag_text TEXT,
+  CONSTRAINT uq_tag_name UNIQUE (tag_text)
+);
+
+CREATE TABLE song_tag
+(
+  id SERIAL  NOT NULL CONSTRAINT artist_tag_pkey PRIMARY KEY,
+  song_id INTEGER NOT NULL CONSTRAINT song_id_fkey REFERENCES song,
+  tag_id INTEGER NOT NULL CONSTRAINT tag_id_fkey REFERENCES tag
+);

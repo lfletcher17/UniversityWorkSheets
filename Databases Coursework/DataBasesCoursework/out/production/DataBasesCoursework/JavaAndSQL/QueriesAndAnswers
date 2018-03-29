@@ -1,0 +1,74 @@
+--Q1
+SELECT COUNT(id) FROM album;
+-- answer 593
+
+--Q2
+SELECT COUNT(DISTINCT (album_id))
+FROM tag
+JOIN song_tag st ON tag.id = st.tag_id
+JOIN song on st.song_id = song.id
+JOIN album ON song.album_id = album.id
+WHERE tag.tag_text = 'funk rock*' or tag.tag_text = 'funk rock';
+--answer 24
+
+--Q3
+SELECT DISTINCT (artist_name)
+FROM tag
+JOIN song_tag st ON tag.id = st.tag_id
+JOIN song on st.song_id = song.id
+JOIN album ON song.album_id = album.id
+JOIN artist a ON album.artist_id = a.id
+WHERE tag.tag_text = 'new wave' or tag_text = 'new wave*';
+--answer
+-- YEAH YEAH YEAHS
+-- POLICE
+-- CURE
+-- DEEP PURPLE
+-- PATTI SMITH
+-- WEEZER
+-- JEFF BUCKLEY
+-- VELVET UNDERGROUND
+-- DEBORAH HARRY
+-- DEPECHE MODE
+-- BLONDIE
+-- EURYTHMICS
+-- BEASTIE BOYS
+-- R.E.M.
+-- NIRVANA
+-- VERVE
+-- COLDPLAY
+-- JAM
+-- LOU REED
+-- FRANZ FERDINAND
+-- RADIOHEAD
+-- PIXIES
+-- NEW ORDER
+-- CLASH
+-- JACKSON FIVE
+
+
+--Q4
+SELECT * FROM song_tag
+JOIN tag on song_tag.tag_id = tag.id
+WHERE tag.tag_text LIKE '%love%';
+--110 songs with 'love' in the title
+--183 songs with tag containing 'love'
+--73 song more that are tagged with 'love' than there are track with 'love' in the title
+
+--Q5
+SELECT COUNT(DISTINCT (album_name)) FROM song
+JOIN album ON song.album_id = album.id
+JOIN artist a ON album.artist_id = a.id
+WHERE song.song_name LIKE '%DOG%';
+--answer - 7
+
+--Q6
+SELECT COUNT(song_tag.id) FROM song_tag
+JOIN tag on song_tag.tag_id = tag.id
+WHERE tag.tag_text = 'rhythmic' OR tag.tag_text ='rhythmic*';
+--result 871
+SELECT COUNT(song_tag.id) FROM song_tag
+JOIN tag on song_tag.tag_id = tag.id
+WHERE tag.tag_text = 'playful' OR tag.tag_text = 'playful*';
+--result 43
+--Answer - there are more rhythmic songs than playful
