@@ -30,13 +30,13 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements ConnectionStateCallback,
+public class LocationActivity extends AppCompatActivity implements ConnectionStateCallback,
         LoaderManager.LoaderCallbacks<String>, LocationAdapter.LocationAdapterOnClickHandler {
 
     private static final String SPOTIFY_CLIENT_ID = "9c7db37d947d41519f7148ad5076f76a";
     private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final int REQUEST_CODE = 2018;
-    private static final int CREATE_EVENT_DATA_LOADERID = 22;
+    private static final int LOCATION_DATA_LOADERID = 22;
     private static final String SEARCH_LOCATION = "event location";
     private String spotifyToken;
     private String mLocation;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_location);
         mLocationSearchBoxEditText = (EditText) findViewById(R.id.location_search_box);
         mLocationErrorMessageDisplay = (TextView) findViewById(R.id.location_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 //        builder.setScopes(new String[]{"user-read-private", "streaming"});
 //        AuthenticationRequest request = builder.build();
 //        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        getSupportLoaderManager().initLoader(CREATE_EVENT_DATA_LOADERID, null, this);
+        getSupportLoaderManager().initLoader(LOCATION_DATA_LOADERID, null, this);
     }
 
     private void findLocation() {
@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
         Bundle queryBundle = new Bundle();
         queryBundle.putString(SEARCH_LOCATION, locationQuery);
         LoaderManager loaderManager = getSupportLoaderManager();
-        Loader<String> createEventDataLoader = loaderManager.getLoader(CREATE_EVENT_DATA_LOADERID);
+        Loader<String> createEventDataLoader = loaderManager.getLoader(LOCATION_DATA_LOADERID);
         if (createEventDataLoader == null) {
-            loaderManager.initLoader(CREATE_EVENT_DATA_LOADERID, queryBundle, this).forceLoad();
+            loaderManager.initLoader(LOCATION_DATA_LOADERID, queryBundle, this).forceLoad();
         } else {
-            loaderManager.restartLoader(CREATE_EVENT_DATA_LOADERID, queryBundle, this);
+            loaderManager.restartLoader(LOCATION_DATA_LOADERID, queryBundle, this);
         }
     }
 
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
                 .show();
     }
 
-
     @Override
     public Loader<String> onCreateLoader(int id, final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
             @Override
             public String loadInBackground() {
                 String queryLocation = args.getString(SEARCH_LOCATION);
-//                Toast.makeText(MainActivity.this,
+//                Toast.makeText(LocationActivity.this,
 //                        "Reaching loadInBackground with arg of: " + queryLocation, Toast.LENGTH_LONG).show();
                 if (queryLocation == null || TextUtils.isEmpty(queryLocation)) {
                     return null;
@@ -205,27 +204,27 @@ public class MainActivity extends AppCompatActivity implements ConnectionStateCa
 
     @Override
     public void onLoggedIn() {
-        Log.d("MainActivity", "User logged in");
+        Log.d("LocationActivity", "User logged in");
     }
 
     @Override
     public void onLoggedOut() {
-        Log.d("MainActivity", "User logged out");
+        Log.d("LocationActivity", "User logged out");
     }
 
     @Override
     public void onLoginFailed(Error var1) {
-        Log.d("MainActivity", "Login failed");
+        Log.d("LocationActivity", "Login failed");
     }
 
     @Override
     public void onTemporaryError() {
-        Log.d("MainActivity", "Temporary error occurred");
+        Log.d("LocationActivity", "Temporary error occurred");
     }
 
     @Override
     public void onConnectionMessage(String message) {
-        Log.d("MainActivity", "Received connection message: " + message);
+        Log.d("LocationActivity", "Received connection message: " + message);
     }
 
 }
