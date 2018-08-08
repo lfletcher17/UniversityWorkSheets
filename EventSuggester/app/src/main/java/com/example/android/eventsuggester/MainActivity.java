@@ -9,56 +9,84 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
-import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
-import com.spotify.sdk.android.player.Player;
-import com.spotify.sdk.android.player.PlayerEvent;
-import com.spotify.sdk.android.player.Spotify;
-import com.spotify.sdk.android.player.SpotifyPlayer;
+
+import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback,
+public class MainActivity extends AppCompatActivity implements ConnectionStateCallback,
         LoaderManager.LoaderCallbacks<String> {
 
     private static final String SPOTIFY_CLIENT_ID = "9c7db37d947d41519f7148ad5076f76a";
     private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final int REQUEST_CODE = 2018;
-    private Player mPlayer;
     private static final int CREATE_EVENT_DATA_LOADERID = 22;
-    private static final String CREATE_EVENT_DATA_LOCATION = "event location";
-    private String mLocation = "London";
+    private static final String SEARCH_LOCATION = "event location";
+    private String mLocation;
+
+    private EditText mLocationSearchBoxEditText;
+    private TextView mLocationDisplayTextView;
+    private TextView mLocationSearchResultsTextView;
+    private TextView mLocationErrorMessageDisplay;
+    private ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mLocationSearchBoxEditText = (EditText) findViewById(R.id.location_search_box);
+        mLocationDisplayTextView = (TextView) findViewById(R.id.location_display);
+        mLocationSearchResultsTextView = (TextView) findViewById(R.id.location_results);
+        mLocationErrorMessageDisplay = (TextView) findViewById(R.id.location_error_message_display);
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
         //Spotify Auth code
-        AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
-        AuthenticationRequest request = builder.build();
-        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+//        AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
+//        builder.setScopes(new String[]{"user-read-private", "streaming"});
+//        AuthenticationRequest request = builder.build();
+//        AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
         getSupportLoaderManager().initLoader(CREATE_EVENT_DATA_LOADERID, null, this);
     }
 
-    private void createEventData () {
-        //ALL THIS LOADER CODE BASICALLY ENSURE WE DON'T KEEP MAKING SAME NETWORK CALL AGAIN AND AGAIN
+    private void findLocation() {
+        //ALL THIS LOADER CODE BASICALLY ENSURES WE DON'T KEEP MAKING SAME NETWORK CALL AGAIN AND AGAIN
+        String locationQuery = mLocationSearchBoxEditText.getText().toString();
         Bundle queryBundle = new Bundle();
-        queryBundle.putString(CREATE_EVENT_DATA_LOCATION, mLocation);
+        queryBundle.putString(SEARCH_LOCATION, locationQuery);
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> createEventDataLoader = loaderManager.getLoader(CREATE_EVENT_DATA_LOADERID);
         if (createEventDataLoader == null) {
-            loaderManager.initLoader(CREATE_EVENT_DATA_LOADERID, queryBundle, this);
+            loaderManager.initLoader(CREATE_EVENT_DATA_LOADERID, queryBundle, this).forceLoad();
         } else {
             loaderManager.restartLoader(CREATE_EVENT_DATA_LOADERID, queryBundle, this);
         }
     }
+
+    private void showDataView() {
+        // First, make sure the error is invisible
+        mLocationErrorMessageDisplay.setVisibility(View.INVISIBLE);
+        // Then, make sure the JSON data is visible
+        mLocationSearchResultsTextView.setVisibility(View.VISIBLE);
+    }
+
+    private void showErrorMessage() {
+        // First, hide the currently visible data
+        mLocationSearchResultsTextView.setVisibility(View.INVISIBLE);
+        // Then, show the error
+        mLocationErrorMessageDisplay.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     public Loader<String> onCreateLoader(int id, final Bundle args) {
@@ -68,15 +96,19 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
                 if (args == null) {
                     return;
                 }
-                //SET A LOADING INDICATOR HERE!!!
+                mLoadingIndicator.setVisibility(View.VISIBLE);
+                forceLoad();
             }
             @Override
             public String loadInBackground() {
-                String queryLocation = args.getString(CREATE_EVENT_DATA_LOCATION);
+                String queryLocation = args.getString(SEARCH_LOCATION);
+//                Toast.makeText(MainActivity.this,
+//                        "Reaching loadInBackground with arg of: " + queryLocation, Toast.LENGTH_LONG).show();
                 if (queryLocation == null || TextUtils.isEmpty(queryLocation)) {
                     return null;
                 }
                 try {
+                    //THIS IS WHERE THE ACTUAL WORK IS TAKING PLACE!
                     String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildLocationUrl(queryLocation));
                     return result;
                 } catch (IOException e) {
@@ -91,11 +123,25 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
     public void onLoadFinished(Loader<String> loader, String data) {
         //STOP SHOWING LOADER AND DISPLAY RESULTS HERE!!
         if (data != null && !data.equals("")) {
-            //show the results
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
+            showDataView();
+            ArrayList<Location> locationResults = new ArrayList<Location>();
+            try {
+                locationResults = SongKickUtils.getLocation(data);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            if (locationResults.isEmpty()) {
+                showErrorMessage();
+            } else {
+                mLocationSearchResultsTextView.setText(locationResults.get(0).toString());
+            }
+//            mLocationSearchResultsTextView.setText(data);
         } else {
-            //show some error message?
+
         }
     }
+
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
@@ -112,23 +158,27 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
             String accessToken = response.getAccessToken();
             */
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
-                //CALL OUR METHOD THAT CREATES THE EVENT DATA
-                createEventData();
-//                Config playerConfig = new Config(this, response.getAccessToken(), SPOTIFY_CLIENT_ID);
-//                Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
-//                    @Override
-//                    public void onInitialized(SpotifyPlayer spotifyPlayer) {
-//                        mPlayer = spotifyPlayer;
-//                        mPlayer.addConnectionStateCallback(MainActivity.this);
-//                        mPlayer.addNotificationCallback(MainActivity.this);
-//                    }
-//                    @Override
-//                    public void onError(Throwable throwable) {
-//                        Log.e("MainActivity", "Could not initialize player: " + throwable.getMessage());
-//                    }
-//                });
+                //FINE, THE APP CAN CONTINUE
+            } else {
+                //SOME ERROR HANDLING FOR IF USER ISN'T AUTHENTICATED?
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClickedId = item.getItemId();
+        if (itemThatWasClickedId == R.id.action_search) {
+            findLocation();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -137,31 +187,8 @@ public class MainActivity extends AppCompatActivity implements SpotifyPlayer.Not
     }
 
     @Override
-    public void onPlaybackEvent(PlayerEvent playerEvent) {
-        Log.d("MainActivity", "Playback event received: " + playerEvent.name());
-        switch (playerEvent) {
-            // Handle event type as necessary
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public void onPlaybackError(Error error) {
-        Log.d("MainActivity", "Playback error received: " + error.name());
-        switch (error) {
-            // Handle error type as necessary
-            default:
-                break;
-        }
-    }
-
-    @Override
     public void onLoggedIn() {
         Log.d("MainActivity", "User logged in");
-
-        // This is the line that plays a song.
-        mPlayer.playUri(null, "spotify:track:2TpxZ7JUBn3uw46aR7qd6V", 0, 0);
     }
 
     @Override
