@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/SpotifyBlack"
     android:theme="@style/SpotifyThemeNew"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context=".LocationActivity">
-
-
-    <EditText
-        android:background="@color/SpotifyBlack"
-        android:id="@+id/location_search_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter a location that you would like to see events for"
-        android:textSize="22sp" />
+    tools:context=".EventActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -26,18 +17,18 @@
 
         <android.support.v7.widget.RecyclerView
             android:background="@color/SpotifyBlack"
-            android:id="@+id/recyclerView_location"
+            android:id="@+id/recyclerView_events"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
         <TextView
             android:background="@color/SpotifyBlack"
-            android:id="@+id/location_error_message_display"
+            android:id="@+id/events_error_message_display"
             android:textSize="22sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="@string/location_error"
+            android:text="@string/event_error"
             android:visibility="invisible" />
 
         <ProgressBar
@@ -48,5 +39,7 @@
             android:visibility="invisible" />
 
     </FrameLayout>
+
+
 
 </LinearLayout>

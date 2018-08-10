@@ -17,7 +17,7 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private static final String SPOTIFY_CLIENT_ID = "9c7db37d947d41519f7148ad5076f76a";
     private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final int REQUEST_CODE = 2018;
-    private String spotifyToken;
+    private String mSpotifyToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,12 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
             */
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 //FINE, THE APP CAN CONTINUE BUT WE NEED TO STORE THIS ACCESS TOKEN SOMEWHERE
-                spotifyToken = response.getAccessToken();
+                mSpotifyToken = response.getAccessToken();
+                Log.d("SPOTIFYAUTHTOKEN:", mSpotifyToken);
                 Context context = SpotifyAuthActivity.this;
                 Class destinationActivity = LocationActivity.class;
                 Intent locationIntent = new Intent (context, destinationActivity);
+                locationIntent.putExtra("spotifyToken", mSpotifyToken);
                 startActivity(locationIntent);
             } else {
                 //SOME ERROR HANDLING FOR IF USER ISN'T AUTHENTICATED?
