@@ -38,7 +38,6 @@ import retrofit.client.Response;
 public class EventActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<String>, EventAdapter.EventAdapterOnClickHandler {
 
-    //THERE IS A WAY TO USE THE LOADER FOR DIFFERENT PURPOSES!!! CREATE ANOTHER LOADER ID
     private static final int EVENT_DATA_LOADERID = 23;
     private static final int ARTIST_DATA_LOADERID = 24;
     private static final String SEARCH_EVENT = "events";
