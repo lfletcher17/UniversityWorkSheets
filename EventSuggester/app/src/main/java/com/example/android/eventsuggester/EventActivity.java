@@ -21,6 +21,17 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Album;
+import kaaes.spotify.webapi.android.models.Artist;
+import kaaes.spotify.webapi.android.models.ArtistsCursorPager;
+import kaaes.spotify.webapi.android.models.Pager;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class EventActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<String>, EventAdapter.EventAdapterOnClickHandler {
@@ -33,11 +44,14 @@ public class EventActivity extends AppCompatActivity implements
     private Location mLocation;
     private String mSpotifyToken;
     private ArrayList<String> exampleArtists = new ArrayList<String>();
+    private ArrayList<Artist> mFollowedArtists = new ArrayList<Artist>();
     private ArrayList<Event> mEventResults = new ArrayList<Event>();
     private ProgressBar mLoadingIndicator;
     private TextView mEventErrorMessageDisplay;
     private RecyclerView mRecyclerView;
     private EventAdapter mEventAdapter;
+    private SpotifyApi mSpotifyApi = new SpotifyApi();
+    private SpotifyService spotify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,8 @@ public class EventActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         mLocation = (Location) intent.getParcelableExtra("location");
         mSpotifyToken = intent.getStringExtra("spotifyToken");
+        mSpotifyApi.setAccessToken(mSpotifyToken);
+        spotify = mSpotifyApi.getService();
 
         mEventErrorMessageDisplay = (TextView) findViewById(R.id.events_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
@@ -130,9 +146,8 @@ public class EventActivity extends AppCompatActivity implements
             public String loadInBackground() {
                 if(id == 23) {
                     try {
-                        for (int i = 0; i < exampleArtists.size(); i++) {
-                            Log.d("CURRENT ARTIST", exampleArtists.get(i));
-                            String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildEventSearchUrl(String.valueOf(mLocation.getId()), exampleArtists.get(i)));
+                        for (int i = 0; i < mFollowedArtists.size(); i++) {
+                            String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildEventSearchUrl(String.valueOf(mLocation.getId()), mFollowedArtists.get(i).name));
                             try {
                                 ArrayList<Event> events = SongKickUtils.getEvent(result);
                                 for (int j = 0; j < events.size(); j++) {
@@ -148,6 +163,37 @@ public class EventActivity extends AppCompatActivity implements
                     }
                 } else if (id == 24) {
                     //HERE IS WHERE WE MAKE THE CALL TO SPOTIFY TO OBTAIN OUR LIST OF ARTISTS AS A JSON STRING
+                    Log.d("TRYING", "to get artists from spotify");
+                    ArtistsCursorPager artistsCursorPager = spotify.getFollowedArtists();
+                    List<Artist> artists = artistsCursorPager.artists.items;
+                    for (Artist a : artists) {
+                        Log.d("artist followed", a.name);
+                        mFollowedArtists.add(a);
+                    }
+
+//                    int flag = 0;
+//                    while (flag == 0) {
+//                        spotify.getFollowedArtists(new Callback<ArtistsCursorPager>() {
+//                            @Override
+//                            public void success(ArtistsCursorPager artistsCursorPager, Response response) {
+//                                int total = artistsCursorPager.artists.total;
+//                                Log.d("FOLLOWED ARTISTS", String.valueOf(total));
+//                                List<Artist> artists = artistsCursorPager.artists.items;
+//                                for (Artist a : artists) {
+//                                    Log.d("artist followed", a.name);
+//                                    mFollowedArtists.add(a);
+//                                }
+//
+//                            }
+//
+//                            @Override
+//                            public void failure(RetrofitError error) {
+//                                error.toString();
+//                            }
+//                        });
+
+//                        flag = mFollowedArtists.size() % 21;
+//                    }
                     return "";
                 }
                 return null;
@@ -170,10 +216,10 @@ public class EventActivity extends AppCompatActivity implements
         } else if (loader.getId() == 24) {
             //THIS IS WHERE WE TAKE THE JSON STRING OF ARTISTS AND ADD THEM TO OUR ARRAYLIST
             //IF NOT END OF RESULTS CALL findArtists() again
-            Log.d("TRIED TO GET ARTISTS", "");
-            exampleArtists.add("The Streets");
-            exampleArtists.add("Arctic Monkeys");
-            exampleArtists.add("Mariobou State");
+//            Log.d("TRIED TO GET ARTISTS", "");
+//            exampleArtists.add("The Streets");
+//            exampleArtists.add("Arctic Monkeys");
+//            exampleArtists.add("Mariobou State");
             findEvent();
         }
     }
@@ -181,5 +227,7 @@ public class EventActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<String> loader) {
         //??
+
     }
+
 }

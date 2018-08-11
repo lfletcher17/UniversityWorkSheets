@@ -34,13 +34,106 @@
       <file leaf-file-name="EventActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="158" column="68" lean-forward="false" selection-start-line="158" selection-start-column="68" selection-end-line="158" selection-end-column="68" />
+            <state relative-caret-position="70">
+              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
-                <element signature="e#1317#1325#0" expanded="true" />
-                <element signature="e#1387#1394#0" expanded="true" />
-                <element signature="e#6762#6769#0" expanded="true" />
+                <element signature="e#1745#1753#0" expanded="true" />
+                <element signature="e#1819#1827#0" expanded="true" />
+                <element signature="e#1889#1896#0" expanded="true" />
+                <element signature="e#8953#8960#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpotifyService.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/SpotifyService.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-6921">
+              <caret line="53" column="27" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="27" />
+              <folding>
+                <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1533997855844" expanded="false" signature="152:2290" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArtistsCursorPager.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/ArtistsCursorPager.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="103">
+              <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+              <folding>
+                <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1533997855844" expanded="false" signature="159:245" ph="..." />
+                <marker date="1533997855844" expanded="true" signature="439:692" ph="{...}" />
+                <marker date="1533997855844" expanded="true" signature="507:569" ph="{...}" />
+                <marker date="1533997855844" expanded="false" signature="625:640" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="676:686" ph=" }" />
+                <marker date="1533997855844" expanded="false" signature="728:739" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="748:754" ph=" }" />
+                <marker date="1533997855844" expanded="false" signature="809:820" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="858:864" ph=" }" />
+                <marker date="1533997855844" expanded="true" signature="898:905" ph="{}" />
+                <marker date="1533997855844" expanded="true" signature="951:1043" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Artist.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/Artist.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="31">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+              <folding>
+                <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1533997855844" expanded="false" signature="159:238" ph="..." />
+                <marker date="1533997855844" expanded="true" signature="481:686" ph="{...}" />
+                <marker date="1533997855844" expanded="false" signature="536:551" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="577:587" ph=" }" />
+                <marker date="1533997855844" expanded="false" signature="631:646" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="670:680" ph=" }" />
+                <marker date="1533997855844" expanded="false" signature="722:733" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="742:748" ph=" }" />
+                <marker date="1533997855844" expanded="true" signature="804:1033" ph="{...}" />
+                <marker date="1533997855844" expanded="true" signature="1055:1062" ph="{}" />
+                <marker date="1533997855844" expanded="true" signature="1096:1404" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArtistSimple.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/ArtistSimple.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+              <folding>
+                <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1533997855844" expanded="false" signature="159:267" ph="..." />
+                <marker date="1533997855844" expanded="true" signature="566:795" ph="{...}" />
+                <marker date="1533997855844" expanded="false" signature="627:642" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="674:684" ph=" }" />
+                <marker date="1533997855844" expanded="false" signature="734:749" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="779:789" ph=" }" />
+                <marker date="1533997855844" expanded="true" signature="824:831" ph="{}" />
+                <marker date="1533997855844" expanded="false" signature="866:877" ph=" { " />
+                <marker date="1533997855844" expanded="false" signature="886:892" ph=" }" />
+                <marker date="1533997855844" expanded="true" signature="948:1180" ph="{...}" />
+                <marker date="1533997855844" expanded="true" signature="1220:1482" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpotifyAuthActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="26" column="90" lean-forward="false" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,6 +255,8 @@
       <find>getEven</find>
       <find>findLoc</find>
       <find>getEvent</find>
+      <find>getArt</find>
+      <find>offset</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -2182,7 +2277,6 @@
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/NetworkUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/location_list_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/MainActivity.java" />
@@ -2192,7 +2286,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_location.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/TestClass.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event.xml" />
@@ -2202,6 +2295,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/LocationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SongKickUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/Event.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java" />
       </list>
     </option>
@@ -2584,7 +2679,7 @@
     <frame x="0" y="23" width="1280" height="736" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281493" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761312" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2599,7 +2694,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281493" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761312" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2629,9 +2724,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#1317#1325#0" expanded="true" />
-            <element signature="e#1387#1394#0" expanded="true" />
-            <element signature="e#6762#6769#0" expanded="true" />
+            <element signature="e#1745#1753#0" expanded="true" />
+            <element signature="e#1819#1827#0" expanded="true" />
+            <element signature="e#1889#1896#0" expanded="true" />
+            <element signature="e#8953#8960#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2717,9 +2813,10 @@
         <state relative-caret-position="225">
           <caret line="18" column="62" lean-forward="false" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
           <folding>
-            <element signature="e#1317#1325#0" expanded="true" />
-            <element signature="e#1387#1394#0" expanded="true" />
-            <element signature="e#6762#6769#0" expanded="true" />
+            <element signature="e#1745#1753#0" expanded="true" />
+            <element signature="e#1819#1827#0" expanded="true" />
+            <element signature="e#1889#1896#0" expanded="true" />
+            <element signature="e#8953#8960#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2905,14 +3002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="38" column="60" lean-forward="false" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.spotify.android/auth/1.0.0-alpha/44ff21e2eeb6d63d7dd574b2545ac9965b4aa842/auth-1.0.0-alpha-sources.jar!/com/spotify/sdk/android/authentication/AuthenticationRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-19">
@@ -2994,14 +3083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="35" column="99" lean-forward="false" selection-start-line="35" selection-start-column="99" selection-end-line="35" selection-end-column="99" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3185,14 +3266,105 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="1" lean-forward="true" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="26" column="90" lean-forward="false" selection-start-line="26" selection-start-column="90" selection-end-line="26" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/ArtistsCursorPager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding>
+            <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1533997855844" expanded="false" signature="159:245" ph="..." />
+            <marker date="1533997855844" expanded="true" signature="439:692" ph="{...}" />
+            <marker date="1533997855844" expanded="true" signature="507:569" ph="{...}" />
+            <marker date="1533997855844" expanded="false" signature="625:640" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="676:686" ph=" }" />
+            <marker date="1533997855844" expanded="false" signature="728:739" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="748:754" ph=" }" />
+            <marker date="1533997855844" expanded="false" signature="809:820" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="858:864" ph=" }" />
+            <marker date="1533997855844" expanded="true" signature="898:905" ph="{}" />
+            <marker date="1533997855844" expanded="true" signature="951:1043" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/Artist.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+          <folding>
+            <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1533997855844" expanded="false" signature="159:238" ph="..." />
+            <marker date="1533997855844" expanded="true" signature="481:686" ph="{...}" />
+            <marker date="1533997855844" expanded="false" signature="536:551" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="577:587" ph=" }" />
+            <marker date="1533997855844" expanded="false" signature="631:646" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="670:680" ph=" }" />
+            <marker date="1533997855844" expanded="false" signature="722:733" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="742:748" ph=" }" />
+            <marker date="1533997855844" expanded="true" signature="804:1033" ph="{...}" />
+            <marker date="1533997855844" expanded="true" signature="1055:1062" ph="{}" />
+            <marker date="1533997855844" expanded="true" signature="1096:1404" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/models/ArtistSimple.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1533997855844" expanded="false" signature="159:267" ph="..." />
+            <marker date="1533997855844" expanded="true" signature="566:795" ph="{...}" />
+            <marker date="1533997855844" expanded="false" signature="627:642" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="674:684" ph=" }" />
+            <marker date="1533997855844" expanded="false" signature="734:749" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="779:789" ph=" }" />
+            <marker date="1533997855844" expanded="true" signature="824:831" ph="{}" />
+            <marker date="1533997855844" expanded="false" signature="866:877" ph=" { " />
+            <marker date="1533997855844" expanded="false" signature="886:892" ph=" }" />
+            <marker date="1533997855844" expanded="true" signature="948:1180" ph="{...}" />
+            <marker date="1533997855844" expanded="true" signature="1220:1482" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/spotify-web-api-android-0.4.1.aar/6865269d9bba1a5f02afc139ce2b0c37/jars/classes.jar!/kaaes/spotify/webapi/android/SpotifyService.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6921">
+          <caret line="53" column="27" lean-forward="false" selection-start-line="53" selection-start-column="21" selection-end-line="53" selection-end-column="27" />
+          <folding>
+            <marker date="1533997855844" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1533997855844" expanded="false" signature="152:2290" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="158" column="68" lean-forward="false" selection-start-line="158" selection-start-column="68" selection-end-line="158" selection-end-column="68" />
+        <state relative-caret-position="70">
+          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
-            <element signature="e#1317#1325#0" expanded="true" />
-            <element signature="e#1387#1394#0" expanded="true" />
-            <element signature="e#6762#6769#0" expanded="true" />
+            <element signature="e#1745#1753#0" expanded="true" />
+            <element signature="e#1819#1827#0" expanded="true" />
+            <element signature="e#1889#1896#0" expanded="true" />
+            <element signature="e#8953#8960#0" expanded="true" />
           </folding>
         </state>
       </provider>

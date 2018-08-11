@@ -24,7 +24,7 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_auth);
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
