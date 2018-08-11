@@ -47,7 +47,6 @@ public final class SongKickUtils {
             }
             artistFor = artistFor + splitted[i];
         }
-        System.out.println(artistFor);
         return artistFor;
     }
 
@@ -113,54 +112,51 @@ public final class SongKickUtils {
 
     public static ArrayList<Event> getEvent(String eventQueryResult) throws JSONException {
 
+        ArrayList<Event> list = new ArrayList<Event>();
         JSONObject rawJSON = new JSONObject(eventQueryResult);
 //        Log.d("RAWJSON", rawJSON.toString());
         JSONObject resultsPage = rawJSON.getJSONObject("resultsPage");
 //        Log.d("RESULTSPAGE", resultsPage.toString());
-        JSONObject results = resultsPage.getJSONObject("results");
-//        Log.d("RESULTS", results.toString());
-        JSONArray events = results.getJSONArray("event");
-//        Log.d("EVENTS", events.toString());
+        int numberOfResults = resultsPage.getInt("totalEntries");
 
-        ArrayList<Event> list = new ArrayList<Event>();
+        if (numberOfResults > 0) {
 
-        for(int i=0; i<events.length(); i++){
+            JSONObject results = resultsPage.getJSONObject("results");
+//            Log.d("RESULTS", results.toString());
+            JSONArray events = results.getJSONArray("event");
 
-            JSONObject obj = events.getJSONObject(i);
-//            Log.d("LOOPOBJ" + (i + 1), obj.toString());
-            int eventID = obj.getInt("id");
-//            Log.d("ID", String.valueOf(eventID));
-            String eventName = obj.getString("displayName");
-//            Log.d("EVENTNAME", eventName);
+            for (int i = 0; i < events.length(); i++) {
 
-            JSONObject venue = obj.getJSONObject("venue");
-            String venueName = venue.getString("displayName");
-//            Log.d("VENUE", venueName);
+                JSONObject obj = events.getJSONObject(i);
+                int eventID = obj.getInt("id");
+                String eventName = obj.getString("displayName");
 
-            JSONObject start = obj.getJSONObject("start");
-            String date = start.getString("date");
-//            Log.d("DATE", date);
+                JSONObject venue = obj.getJSONObject("venue");
+                String venueName = venue.getString("displayName");
 
-            String uri = obj.getString("uri");
+                JSONObject start = obj.getJSONObject("start");
+                String date = start.getString("date");
 
-            JSONArray performers = obj.getJSONArray("performance");
-//            Log.d("PERFORMERS", performers.toString());
+                String uri = obj.getString("uri");
 
-            ArrayList<SongKickArtist> artists = new ArrayList<SongKickArtist>();
+                JSONArray performers = obj.getJSONArray("performance");
 
-            for (int j = 0; j < performers.length(); j++) {
-                JSONObject performer = performers.getJSONObject(j);
-                JSONObject artist = performer.getJSONObject("artist");
-                int artistId = artist.getInt("id");
-                String artistName = artist.getString("displayName");
-                String artistUri = artist.getString("uri");
-                String billing = performer.getString("billing");
-                Log.d("BILLING",eventName + billing);
-                SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
-                artists.add(skArtist);
+                ArrayList<SongKickArtist> artists = new ArrayList<SongKickArtist>();
+
+                for (int j = 0; j < performers.length(); j++) {
+                    JSONObject performer = performers.getJSONObject(j);
+                    JSONObject artist = performer.getJSONObject("artist");
+                    int artistId = artist.getInt("id");
+                    String artistName = artist.getString("displayName");
+                    String artistUri = artist.getString("uri");
+                    String billing = performer.getString("billing");
+//                    Log.d("BILLING", eventName + billing);
+                    SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
+                    artists.add(skArtist);
+                }
+                Event event = new Event(eventID, eventName, venueName, date, uri, artists);
+                list.add(event);
             }
-            Event event = new Event(eventID, eventName, venueName, date, uri, artists);
-            list.add(event);
         }
         return list;
     }

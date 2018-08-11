@@ -2,15 +2,20 @@ package com.example.android.eventsuggester;
 
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class Event {
+public class Event implements Comparable<Event> {
 
     private int eventID;
     private SongKickArtist headliner = null;
     private String eventName;
     private String venue;
-    private String date;
+//    private String date;
+    private Date date;
     private String uri;
     private ArrayList<SongKickArtist> performers;
 
@@ -18,13 +23,18 @@ public class Event {
         this.eventID = eventId;
         for (int i = 0; i < performers.size(); i++) {
             if (performers.get(i).getBilling().equals("headline")) {
-                Log.d("HEADLINERFOUND", performers.get(i).getName());
                 this.headliner = performers.get(i);
             }
         }
         this.eventName = eventName;
         this.venue = venue;
-        this.date = date;
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+        try {
+            this.date = formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("DATEASSTRING", date.toString());
         this.uri = uri;
         this.performers = performers;
     }
@@ -66,11 +76,11 @@ public class Event {
         this.venue = venue;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -88,5 +98,10 @@ public class Event {
 
     public void setPerformers(ArrayList<SongKickArtist> performers) {
         this.performers = performers;
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        return this.getDate().compareTo(o.getDate());
     }
 }

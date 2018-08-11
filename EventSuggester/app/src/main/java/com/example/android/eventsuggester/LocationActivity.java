@@ -66,7 +66,7 @@ public class LocationActivity extends AppCompatActivity implements
         if (createEventDataLoader == null) {
             loaderManager.initLoader(LOCATION_DATA_LOADERID, queryBundle, this).forceLoad();
         } else {
-            loaderManager.restartLoader(LOCATION_DATA_LOADERID, queryBundle, this);
+            loaderManager.restartLoader(LOCATION_DATA_LOADERID, queryBundle, this).forceLoad();
         }
     }
 
