@@ -21,7 +21,9 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
@@ -55,6 +57,7 @@ public class EventActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         Intent intent = getIntent();
@@ -83,9 +86,9 @@ public class EventActivity extends AppCompatActivity implements
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> createArtistDataLoader = loaderManager.getLoader(ARTIST_DATA_LOADERID);
         if (createArtistDataLoader == null) {
-            loaderManager.initLoader(ARTIST_DATA_LOADERID, queryBundle, this).forceLoad();
+            loaderManager.initLoader(ARTIST_DATA_LOADERID, queryBundle, this);
         } else {
-            loaderManager.restartLoader(ARTIST_DATA_LOADERID, queryBundle, this).forceLoad();
+            loaderManager.restartLoader(ARTIST_DATA_LOADERID, queryBundle, this);
         }
 
     }
@@ -95,9 +98,9 @@ public class EventActivity extends AppCompatActivity implements
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> createEventDataLoader = loaderManager.getLoader(EVENT_DATA_LOADERID);
         if (createEventDataLoader == null) {
-            loaderManager.initLoader(EVENT_DATA_LOADERID, queryBundle, this).forceLoad();
+            loaderManager.initLoader(EVENT_DATA_LOADERID, queryBundle, this);
         } else {
-            loaderManager.restartLoader(EVENT_DATA_LOADERID, queryBundle, this).forceLoad();
+            loaderManager.restartLoader(EVENT_DATA_LOADERID, queryBundle, this);
         }
     }
 
@@ -162,38 +165,22 @@ public class EventActivity extends AppCompatActivity implements
                         return null;
                     }
                 } else if (id == 24) {
-                    //HERE IS WHERE WE MAKE THE CALL TO SPOTIFY TO OBTAIN OUR LIST OF ARTISTS AS A JSON STRING
-                    Log.d("TRYING", "to get artists from spotify");
-                    ArtistsCursorPager artistsCursorPager = spotify.getFollowedArtists();
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put(SpotifyService.LIMIT, 10);
+                    ArtistsCursorPager artistsCursorPager = spotify.getFollowedArtists(map);
                     List<Artist> artists = artistsCursorPager.artists.items;
-                    for (Artist a : artists) {
-                        Log.d("artist followed", a.name);
+                    for (Artist a: artists) {
                         mFollowedArtists.add(a);
                     }
-
-//                    int flag = 0;
-//                    while (flag == 0) {
-//                        spotify.getFollowedArtists(new Callback<ArtistsCursorPager>() {
-//                            @Override
-//                            public void success(ArtistsCursorPager artistsCursorPager, Response response) {
-//                                int total = artistsCursorPager.artists.total;
-//                                Log.d("FOLLOWED ARTISTS", String.valueOf(total));
-//                                List<Artist> artists = artistsCursorPager.artists.items;
-//                                for (Artist a : artists) {
-//                                    Log.d("artist followed", a.name);
-//                                    mFollowedArtists.add(a);
-//                                }
-//
-//                            }
-//
-//                            @Override
-//                            public void failure(RetrofitError error) {
-//                                error.toString();
-//                            }
-//                        });
-
-//                        flag = mFollowedArtists.size() % 21;
-//                    }
+                    while (mFollowedArtists.size() % 10 == 0) {
+                        map.put("after", mFollowedArtists.get(mFollowedArtists.size()-1).id);
+                        artistsCursorPager = spotify.getFollowedArtists(map);
+                        artists = artistsCursorPager.artists.items;
+                        for (Artist a: artists) {
+                            mFollowedArtists.add(a);
+                        }
+                    }
+                    Log.d("SIZE", String.valueOf(mFollowedArtists.size()));
                     return "";
                 }
                 return null;
@@ -214,12 +201,6 @@ public class EventActivity extends AppCompatActivity implements
                 showDataView();
             }
         } else if (loader.getId() == 24) {
-            //THIS IS WHERE WE TAKE THE JSON STRING OF ARTISTS AND ADD THEM TO OUR ARRAYLIST
-            //IF NOT END OF RESULTS CALL findArtists() again
-//            Log.d("TRIED TO GET ARTISTS", "");
-//            exampleArtists.add("The Streets");
-//            exampleArtists.add("Arctic Monkeys");
-//            exampleArtists.add("Mariobou State");
             findEvent();
         }
     }
@@ -227,7 +208,6 @@ public class EventActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<String> loader) {
         //??
-
     }
 
 }
