@@ -26,6 +26,7 @@ allprojects {
         }
         mavenCentral()
         maven { url "https://jitpack.io" }
+        google()
     }
 }
 
@@ -40,4 +41,5 @@ dependencies {
     implementation 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
     implementation 'com.android.support:recyclerview-v7:25.1.1'
     implementation 'com.github.kaaes:spotify-web-api-android:0.4.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 }

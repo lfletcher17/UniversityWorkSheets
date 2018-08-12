@@ -39,15 +39,16 @@ public class LocationActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+
         Intent intent = getIntent();
         mSpotifyToken = intent.getStringExtra("spotifyToken");
+
         mLocationSearchBoxEditText = (EditText) findViewById(R.id.location_search_box);
         mLocationErrorMessageDisplay = (TextView) findViewById(R.id.location_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_location);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mLocationAdapter = new LocationAdapter(this);
