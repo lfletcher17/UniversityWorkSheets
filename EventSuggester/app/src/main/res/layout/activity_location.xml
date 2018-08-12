@@ -17,7 +17,7 @@
         android:id="@+id/location_search_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter a location that you would like to see events for"
+        android:hint="@string/location_hint"
         android:textSize="22sp" />
 
     <FrameLayout

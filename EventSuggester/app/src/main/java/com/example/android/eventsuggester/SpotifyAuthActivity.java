@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -18,11 +20,34 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final int REQUEST_CODE = 2018;
     private String mSpotifyToken;
+    private Button mCurrentLocation;
+    private Button mManualLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_auth);
+
+        mCurrentLocation = (Button) findViewById(R.id.btn_current_location);
+        mCurrentLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("BUTTONCLICKED", "Current Location");
+            }
+        });
+
+        mManualLocation = (Button) findViewById(R.id.btn_manual_location);
+        mManualLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = SpotifyAuthActivity.this;
+                Class destinationActivity = LocationActivity.class;
+                Intent locationIntent = new Intent (context, destinationActivity);
+                locationIntent.putExtra("spotifyToken", mSpotifyToken);
+                startActivity(locationIntent);
+            }
+        });
+
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read"});
         AuthenticationRequest request = builder.build();
@@ -42,11 +67,11 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
                 //FINE, THE APP CAN CONTINUE BUT WE NEED TO STORE THIS ACCESS TOKEN SOMEWHERE
                 mSpotifyToken = response.getAccessToken();
                 Log.d("SPOTIFYAUTHTOKEN:", mSpotifyToken);
-                Context context = SpotifyAuthActivity.this;
-                Class destinationActivity = LocationActivity.class;
-                Intent locationIntent = new Intent (context, destinationActivity);
-                locationIntent.putExtra("spotifyToken", mSpotifyToken);
-                startActivity(locationIntent);
+//                Context context = SpotifyAuthActivity.this;
+//                Class destinationActivity = LocationActivity.class;
+//                Intent locationIntent = new Intent (context, destinationActivity);
+//                locationIntent.putExtra("spotifyToken", mSpotifyToken);
+//                startActivity(locationIntent);
             } else {
                 //SOME ERROR HANDLING FOR IF USER ISN'T AUTHENTICATED?
             }

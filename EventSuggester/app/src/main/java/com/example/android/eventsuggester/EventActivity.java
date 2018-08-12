@@ -165,13 +165,13 @@ public class EventActivity extends AppCompatActivity implements
                     }
                 } else if (id == 24) {
                     Map<String, Object> map = new HashMap<String, Object>();
-                    map.put(SpotifyService.LIMIT, 10);
+                    map.put(SpotifyService.LIMIT, 50);
                     ArtistsCursorPager artistsCursorPager = spotify.getFollowedArtists(map);
                     List<Artist> artists = artistsCursorPager.artists.items;
                     for (Artist a: artists) {
                         mFollowedArtists.add(a);
                     }
-                    while (mFollowedArtists.size() % 10 == 0) {
+                    while (mFollowedArtists.size() % 50 == 0) {
                         map.put("after", mFollowedArtists.get(mFollowedArtists.size()-1).id);
                         artistsCursorPager = spotify.getFollowedArtists(map);
                         artists = artistsCursorPager.artists.items;

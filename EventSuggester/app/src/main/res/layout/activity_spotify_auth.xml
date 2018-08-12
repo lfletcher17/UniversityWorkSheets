@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SpotifyAuthActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent" >
 
-</android.support.constraint.ConstraintLayout>
+<TextView
+    android:id="@+id/location_desc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:text="@string/location_desc"
+    android:textSize="22sp"
+    android:textColor="@color/SpotifyWhite"
+    android:textAlignment="center"
+    />
+
+<TextView
+    android:id="@+id/txtScore"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/location_desc"
+    android:layout_marginLeft="5dp"
+    android:layout_toRightOf="@+id/location_desc"
+    android:text="0" />
+
+
+    <Button
+        android:id="@+id/btn_current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="175dp"
+        android:background="@drawable/button_bg"
+        android:padding="10dp"
+        android:text="@string/location_use_current" />
+
+    <Button
+        android:id="@+id/btn_manual_location"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/btn_current_location"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/btn_current_location"
+        android:padding="10dp"
+        android:text="@string/location_manual"
+        android:background="@drawable/button_bg"/>
+
+</RelativeLayout>
