@@ -61,6 +61,18 @@ public final class SongKickUtils {
         return url;
     }
 
+    public static URL buildLongLatLocationUrl(String latitude, String longitude) {
+        String urlString = SONGKICK_URL + "/search/locations.json?location=geo:" + latitude + "," + longitude +"&apikey=" + SONGKICK_API_KEY;
+        URL url = null;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+
     public static ArrayList<Location> getLocation(String locationQueryResult) throws JSONException {
         JSONObject rawJSON = new JSONObject(locationQueryResult);
 //        Log.d("RAWJSON", rawJSON.toString());
@@ -110,6 +122,7 @@ public final class SongKickUtils {
         return url;
     }
 
+
     public static ArrayList<Event> getEvent(String eventQueryResult) throws JSONException {
 
         ArrayList<Event> list = new ArrayList<Event>();
@@ -150,7 +163,6 @@ public final class SongKickUtils {
                     String artistName = artist.getString("displayName");
                     String artistUri = artist.getString("uri");
                     String billing = performer.getString("billing");
-//                    Log.d("BILLING", eventName + billing);
                     SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
                     artists.add(skArtist);
                 }

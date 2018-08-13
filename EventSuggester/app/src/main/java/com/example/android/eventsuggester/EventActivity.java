@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,9 +43,8 @@ public class EventActivity extends AppCompatActivity implements
     private static final int ARTIST_DATA_LOADERID = 24;
     private static final String SEARCH_EVENT = "events";
     private static final String SEARCH_ARTISTS = "events";
-    private Location mLocation;
+    private String mlocationSkID;
     private String mSpotifyToken;
-    private ArrayList<String> exampleArtists = new ArrayList<String>();
     private ArrayList<Artist> mFollowedArtists = new ArrayList<Artist>();
     private ArrayList<Event> mEventResults = new ArrayList<Event>();
     private ProgressBar mLoadingIndicator;
@@ -60,7 +60,7 @@ public class EventActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         Intent intent = getIntent();
-        mLocation = (Location) intent.getParcelableExtra("location");
+        mlocationSkID = intent.getStringExtra("skID");
         mSpotifyToken = intent.getStringExtra("spotifyToken");
         mSpotifyApi.setAccessToken(mSpotifyToken);
         spotify = mSpotifyApi.getService();
@@ -149,14 +149,14 @@ public class EventActivity extends AppCompatActivity implements
                 if(id == 23) {
                     try {
                         for (int i = 0; i < mFollowedArtists.size(); i++) {
-                            String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildEventSearchUrl(String.valueOf(mLocation.getId()), mFollowedArtists.get(i).name));
+                            String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildEventSearchUrl(mlocationSkID, mFollowedArtists.get(i).name));
                             try {
                                 ArrayList<Event> events = SongKickUtils.getEvent(result);
                                 for (int j = 0; j < events.size(); j++) {
                                     mEventResults.add(events.get(j));
                                 }
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                    e.printStackTrace();
                             }
                         }
                     } catch (IOException e) {
@@ -179,7 +179,6 @@ public class EventActivity extends AppCompatActivity implements
                             mFollowedArtists.add(a);
                         }
                     }
-                    Log.d("SIZE", String.valueOf(mFollowedArtists.size()));
                     return "";
                 }
                 return null;

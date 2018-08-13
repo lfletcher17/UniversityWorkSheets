@@ -2,7 +2,6 @@ package com.example.android.eventsuggester;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +35,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     @Override
     public void onBindViewHolder(EventAdapterViewHolder holder, int position) {
         Event event = mEventData.get(position);
-        //THIS NEEDS TO BE REPLACED WITH THE CORRECT DATA
-        Log.d("BINDING!!", event.toString());
-        holder.mEventTextView.setText(event.toString());
+        holder.mEventTextViewDate.setText(event.formattedDate());
+        holder.mEventTextViewArtistAndVenue.setText(event.getHeadliner().getName() +" @ " + event.getVenue());
     }
 
     @Override
@@ -55,11 +53,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
     }
 
     public class EventAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView mEventTextView;
+        public final TextView mEventTextViewDate;
+        public final TextView mEventTextViewArtistAndVenue;
 
         public EventAdapterViewHolder(View view) {
             super(view);
-            mEventTextView = (TextView) view.findViewById(R.id.event_data);
+//            mEventTextView = (TextView) view.findViewById(R.id.event_data);
+            mEventTextViewDate = (TextView) view.findViewById(R.id.event_date);
+            mEventTextViewArtistAndVenue = (TextView) view.findViewById(R.id.event_artist);
+//            mEventTextViewVenue = (TextView) view.findViewById(R.id.event_venue);
             view.setOnClickListener(this);
         }
 

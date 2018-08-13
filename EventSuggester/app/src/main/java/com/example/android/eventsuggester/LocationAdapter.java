@@ -36,7 +36,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.Locati
     @Override
     public void onBindViewHolder(LocationAdapterViewHolder holder, int position) {
         Location location = mLocationData.get(position);
-        Log.d("BINDING!!", location.toString());
         holder.mLocationTextView.setText(location.toString());
     }
 

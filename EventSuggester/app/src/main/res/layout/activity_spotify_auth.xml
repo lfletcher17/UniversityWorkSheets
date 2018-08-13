@@ -48,6 +48,19 @@ android:layout_height="fill_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
 
+    <TextView
+        android:background="@color/SpotifyBlack"
+        android:id="@+id/location_error_message"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/auto_location_error"
+        android:textColor="@color/SpotifyWhite"
+        android:visibility="invisible" />
+
+
+
 
 
 </LinearLayout>

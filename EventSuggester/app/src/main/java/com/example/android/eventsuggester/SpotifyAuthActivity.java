@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,16 +13,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SpotifyAuthActivity extends AppCompatActivity implements ConnectionStateCallback {
 
@@ -28,39 +38,28 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final int SPOTIFY_REQUEST_CODE = 2018;
     private static final int LOCATION_REQUEST_CODE = 20;
+    private static final int LOCATION_LOADERID = 21;
     private String mSpotifyToken;
     private Button mCurrentLocation;
     private Button mManualLocation;
-    private Location mAuthorisedLocation;
+    private TextView mLocationError;
+    private Location mAuthorisedAndroidLocation;
+    private LocationManager mLocationManager;
     private FusedLocationProviderClient mFusedLocationClient;
-
-    public void getCurrentLocation() {
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions(this,new String[]{"ACCESS_COARSE_LOCATION"}, LOCATION_REQUEST_CODE);
-        }
-        Task task = mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                mAuthorisedLocation = location;
-            }
-        });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_auth);
+        mLocationError = (TextView) findViewById(R.id.location_error_message);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mCurrentLocation = (Button) findViewById(R.id.btn_current_location);
         mCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("BUTTONCLICKED", "Current Location");
-                getCurrentLocation();
-                //NEED TO ADD CODE HERE TO HANDLE SONGKICK API CALL USING LONG AND LAT
+                checkLocationPermission();
             }
         });
-
         mManualLocation = (Button) findViewById(R.id.btn_manual_location);
         mManualLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +71,68 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
                 startActivity(locationIntent);
             }
         });
-
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, SPOTIFY_REQUEST_CODE, request);
+
+    }
+
+    public void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION },
+                    LOCATION_REQUEST_CODE );
+        } else {
+            checkLocationProviders();
+            if (mAuthorisedAndroidLocation == null) {
+                mCurrentLocation.setAlpha(.5f);
+                mCurrentLocation.setClickable(false);
+                mLocationError.setVisibility(View.VISIBLE);
+            } else {
+                getLocation();
+            }
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        checkLocationProviders();
+        if (mAuthorisedAndroidLocation == null) {
+            mCurrentLocation.setAlpha(.5f);
+            mCurrentLocation.setClickable(false);
+            mLocationError.setVisibility(View.VISIBLE);
+        } else {
+            getLocation();
+        }
+    }
+
+    private void checkLocationProviders () {
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        List<String> providers = mLocationManager.getProviders(true);
+        Location location = null;
+
+        for (String provider : providers) {
+            try {
+                location = mLocationManager.getLastKnownLocation(provider);
+            } catch (SecurityException e) {
+                e.printStackTrace();
+                //WILL NEVER GET CALLED, THIS METHOD ONLY CALLED IF PERMISSION WAS ALREADY GRANTED
+            }
+            if (mAuthorisedAndroidLocation == null) {
+                mAuthorisedAndroidLocation = location;
+            } else if (location != null){
+                if (mAuthorisedAndroidLocation.getAccuracy() < location.getAccuracy()) {
+                    mAuthorisedAndroidLocation = location;
+                }
+            }
+        }
+    }
+
+    private void getLocation () {
+        double latitude = mAuthorisedAndroidLocation.getLatitude();
+        double longitude = mAuthorisedAndroidLocation.getLongitude();
+        URL url = SongKickUtils.buildLongLatLocationUrl(String.valueOf(latitude), String.valueOf(longitude));
+        new currentLocationTask().execute(url);
     }
 
     @Override
@@ -84,19 +140,10 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
         super.onActivityResult(requestCode, resultCode, intent);
         if (requestCode == SPOTIFY_REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
-            /*
-            THIS SHOULD BE THE ACCESS TOKEN WHICH WILL BE USED FOR FURTHER WEB API CALLS TO SPOTIFY
-            String accessToken = response.getAccessToken();
-            */
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 //FINE, THE APP CAN CONTINUE BUT WE NEED TO STORE THIS ACCESS TOKEN SOMEWHERE
                 mSpotifyToken = response.getAccessToken();
-                Log.d("SPOTIFYAUTHTOKEN:", mSpotifyToken);
-//                Context context = SpotifyAuthActivity.this;
-//                Class destinationActivity = LocationActivity.class;
-//                Intent locationIntent = new Intent (context, destinationActivity);
-//                locationIntent.putExtra("spotifyToken", mSpotifyToken);
-//                startActivity(locationIntent);
+
             } else {
                 //SOME ERROR HANDLING FOR IF USER ISN'T AUTHENTICATED?
             }
@@ -126,5 +173,58 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     @Override
     public void onConnectionMessage(String message) {
         Log.d("LocationActivity", "Received connection message: " + message);
+    }
+
+    public class currentLocationTask extends AsyncTask<URL,Void,String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchUrl = urls[0];
+            String locationResult = null;
+            try {
+                locationResult = SongKickUtils.getResponseFromHttpUrl(searchUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return locationResult;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            ArrayList<com.example.android.eventsuggester.Location> locationResults = new ArrayList<com.example.android.eventsuggester.Location>();
+            try {
+                locationResults = SongKickUtils.getLocation(s);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Map<Integer, Integer> ids = new HashMap<>();
+            for (com.example.android.eventsuggester.Location l : locationResults) {
+                if (!ids.containsKey(l.getId())) {
+                    ids.put(l.getId(), 1);
+                } else {
+                    int count = ids.get(l.getId());
+                    ids.put(l.getId(), count +1);
+                }
+            }
+            int mostCommon = 0;
+            int winningID = 0;
+            for (Map.Entry<Integer, Integer> entry : ids.entrySet()) {
+                Integer id = entry.getKey();
+                Integer count = entry.getValue();
+                if (count > mostCommon) {
+                    mostCommon = count;
+                    winningID = id;
+                }
+            }
+
+            Context context = SpotifyAuthActivity.this;
+            Class destinationActivity = EventActivity.class;
+            Intent eventIntent = new Intent (context, destinationActivity);
+            eventIntent.putExtra("skID", String.valueOf(winningID));
+            eventIntent.putExtra("spotifyToken", mSpotifyToken);
+            startActivity(eventIntent);
+
+        }
     }
 }

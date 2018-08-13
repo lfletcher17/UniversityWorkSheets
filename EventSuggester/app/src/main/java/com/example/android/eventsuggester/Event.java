@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Event implements Comparable<Event> {
 
@@ -14,7 +15,6 @@ public class Event implements Comparable<Event> {
     private SongKickArtist headliner = null;
     private String eventName;
     private String venue;
-//    private String date;
     private Date date;
     private String uri;
     private ArrayList<SongKickArtist> performers;
@@ -28,13 +28,11 @@ public class Event implements Comparable<Event> {
         }
         this.eventName = eventName;
         this.venue = venue;
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
         try {
-            this.date = formatter.parse(date);
+            this.date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.d("DATEASSTRING", date.toString());
         this.uri = uri;
         this.performers = performers;
     }
@@ -103,5 +101,10 @@ public class Event implements Comparable<Event> {
     @Override
     public int compareTo(Event o) {
         return this.getDate().compareTo(o.getDate());
+    }
+
+    public String formattedDate () {
+        DateFormat df = new SimpleDateFormat("E, MMM dd yyyy");
+        return df.format(this.date);
     }
 }

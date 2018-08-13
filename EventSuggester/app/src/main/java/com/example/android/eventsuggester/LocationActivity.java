@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class LocationActivity extends AppCompatActivity implements
         Context context = LocationActivity.this;
         Class destinationActivity = EventActivity.class;
         Intent eventIntent = new Intent (context, destinationActivity);
-        eventIntent.putExtra("location", mLocation);
+        eventIntent.putExtra("skID", String.valueOf(selectedLocation.getId()));
         eventIntent.putExtra("spotifyToken", mSpotifyToken);
         startActivity(eventIntent);
     }
