@@ -8,5 +8,6 @@
     <string name="event_error">No events found for your location</string>
     <string name="location_use_current">USE CURRENT LOCATION</string>
     <string name="location_manual">ENTER LOCATION MANUALLY</string>
+    <string name="find_events">FIND EVENTS</string>
     <string name="event_open">MORE</string>
 </resources>

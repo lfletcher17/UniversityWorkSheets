@@ -8,9 +8,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -51,6 +53,11 @@ public final class SongKickUtils {
     }
 
     public static URL buildLocationUrl(String locationQuery) {
+        try {
+            locationQuery = URLEncoder.encode(locationQuery, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String urlString = SONGKICK_URL + "/search/locations.json?query=" + locationQuery +"&apikey=" + SONGKICK_API_KEY;
         URL url = null;
         try {
@@ -62,7 +69,14 @@ public final class SongKickUtils {
     }
 
     public static URL buildLongLatLocationUrl(String latitude, String longitude) {
+        try {
+            latitude = URLEncoder.encode(latitude, "UTF-8");
+            longitude = URLEncoder.encode(longitude, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String urlString = SONGKICK_URL + "/search/locations.json?location=geo:" + latitude + "," + longitude +"&apikey=" + SONGKICK_API_KEY;
+
         URL url = null;
         try {
             url = new URL(urlString);
@@ -112,6 +126,12 @@ public final class SongKickUtils {
     }
 
     public static URL buildEventSearchUrl(String metroID, String artist) {
+        try {
+            metroID = URLEncoder.encode(metroID, "UTF-8");
+            artist = URLEncoder.encode(artist, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String urlString = SONGKICK_URL + "/events.json?" + "location=sk:" + metroID + "&artist_name=" + removeSpaces(artist) +"&apikey=" + SONGKICK_API_KEY;
         URL url = null;
         try {

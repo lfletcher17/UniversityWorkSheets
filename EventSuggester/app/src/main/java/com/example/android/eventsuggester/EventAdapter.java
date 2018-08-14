@@ -58,10 +58,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventAdapter
 
         public EventAdapterViewHolder(View view) {
             super(view);
-//            mEventTextView = (TextView) view.findViewById(R.id.event_data);
             mEventTextViewDate = (TextView) view.findViewById(R.id.event_date);
             mEventTextViewArtistAndVenue = (TextView) view.findViewById(R.id.event_artist);
-//            mEventTextViewVenue = (TextView) view.findViewById(R.id.event_venue);
             view.setOnClickListener(this);
         }
 
