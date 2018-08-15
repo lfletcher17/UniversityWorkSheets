@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,6 +25,7 @@ import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +44,10 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private String mSpotifyToken;
     private Button mCurrentLocation;
     private Button mManualLocation;
+
     private TextView mLocationError;
+    private TextView mDescription;
+
     private Location mAuthorisedAndroidLocation;
     private LocationManager mLocationManager;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -51,26 +56,6 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_auth);
-        mLocationError = (TextView) findViewById(R.id.location_error_message);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mCurrentLocation = (Button) findViewById(R.id.btn_current_location);
-        mCurrentLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkLocationPermission();
-            }
-        });
-        mManualLocation = (Button) findViewById(R.id.btn_manual_location);
-        mManualLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = SpotifyAuthActivity.this;
-                Class destinationActivity = LocationActivity.class;
-                Intent locationIntent = new Intent (context, destinationActivity);
-                locationIntent.putExtra("spotifyToken", mSpotifyToken);
-                startActivity(locationIntent);
-            }
-        });
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read", "user-top-read"});
         AuthenticationRequest request = builder.build();
@@ -144,8 +129,35 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
                 //FINE, THE APP CAN CONTINUE BUT WE NEED TO STORE THIS ACCESS TOKEN SOMEWHERE
                 mSpotifyToken = response.getAccessToken();
 
+                mLocationError = (TextView) findViewById(R.id.location_error_message);
+                mDescription = (TextView) findViewById(R.id.location_desc);
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+                mCurrentLocation = (Button) findViewById(R.id.btn_current_location);
+                mCurrentLocation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        checkLocationPermission();
+                    }
+                });
+                mManualLocation = (Button) findViewById(R.id.btn_manual_location);
+                mManualLocation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Context context = SpotifyAuthActivity.this;
+                        Class destinationActivity = LocationActivity.class;
+                        Intent locationIntent = new Intent (context, destinationActivity);
+                        locationIntent.putExtra("spotifyToken", mSpotifyToken);
+                        startActivity(locationIntent);
+                    }
+                });
+                mDescription.setVisibility(View.VISIBLE);
+                mCurrentLocation.setVisibility(View.VISIBLE);
+                mManualLocation.setVisibility(View.VISIBLE);
             } else {
-                //SOME ERROR HANDLING FOR IF USER ISN'T AUTHENTICATED?
+                Context context = SpotifyAuthActivity.this;
+                Class destinationActivity = SpotifyErrorActivity.class;
+                Intent spotifyErrorIntent = new Intent (context, destinationActivity);
+                startActivity(spotifyErrorIntent);
             }
         }
     }
@@ -192,10 +204,19 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
         @Override
         protected void onPostExecute(String s) {
             ArrayList<com.example.android.eventsuggester.Location> locationResults = new ArrayList<com.example.android.eventsuggester.Location>();
-            try {
-                locationResults = SongKickUtils.getLocation(s);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (s == null) {
+                Log.d("ISSUE", "should handle error here?");
+                Context context = SpotifyAuthActivity.this;
+                Class destinationActivity = SpotifyErrorActivity.class;
+                Intent spotifyErrorIntent = new Intent (context, destinationActivity);
+                startActivity(spotifyErrorIntent);
+                return;
+            } else {
+                try {
+                    locationResults = SongKickUtils.getLocation(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             Map<Integer, Integer> ids = new HashMap<>();

@@ -2,12 +2,18 @@
     <string name="app_name">Event Suggester</string>
     <string name="search">Search</string>
     <string name="location_desc">This application will find events in a chosen geographical location based off of your Spotify profile. To do this please select one of the options below:</string>
+    <string name="spotify_error">Unable to connect to Spotify, please check your network settings</string>
     <string name="auto_location_error">Unable to find your location, please select \'enter location manually\'</string>
     <string name="location_error">No location found, please try again</string>
     <string name="location_hint">Enter a City name that you would like to see events for (e.g. London)</string>
     <string name="event_error">No events found for your location</string>
     <string name="location_use_current">USE CURRENT LOCATION</string>
     <string name="location_manual">ENTER LOCATION MANUALLY</string>
+    <string name="try_again">TRY AGAIN</string>
     <string name="find_events">FIND EVENTS</string>
     <string name="event_open">MORE</string>
+    <string name="artists">Artists</string>
+    <string name="event_details">Details</string>
+    <string name="venue">Venue</string>
+    <string name="date">Date</string>
 </resources>

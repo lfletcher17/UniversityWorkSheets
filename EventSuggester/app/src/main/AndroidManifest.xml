@@ -24,9 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LocationActivity" />
-        <activity android:name=".EventActivity"/>
-        <activity android:name=".EventDetailActivity"/>
+        <activity android:name=".LocationActivity"
+            android:theme="@style/SpotifyTheme"/>
+        <activity android:name=".EventActivity"
+            android:theme="@style/SpotifyTheme"/>
+        <activity android:name=".EventDetailActivity"
+            android:theme="@style/SpotifyTheme"/>
+        <activity android:name=".SpotifyErrorActivity"
+            android:theme="@style/SpotifyTheme"/>
     </application>
 
 </manifest>

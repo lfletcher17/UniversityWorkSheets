@@ -36,8 +36,8 @@ public class SpotifyHandler {
         Map<String, Integer> artistCount = new HashMap<>();
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
-        artists.addAll(getTopArtists(LONG_TERM));
-//        artists.addAll(getTopArtists(MEDIUM_TERM));
+//        artists.addAll(getTopArtists(LONG_TERM));
+        artists.addAll(getTopArtists(MEDIUM_TERM));
 //        artists.addAll(getTopArtists(SHORT_TERM));
 //        artists.addAll(getFollowedArtists());
 

@@ -38,18 +38,6 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
-        <Button
-            android:visibility="invisible"
-            android:id="@+id/btn_find_event"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/button_bg"
-            android:padding="10dp"
-            android:text="@string/find_events"
-            android:textColor="@color/SpotifyBlack"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
 
     </FrameLayout>
 

@@ -5,22 +5,21 @@
     android:orientation="vertical"
     android:clickable="true">
 
-
     <TextView
         android:id="@+id/event_date"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:paddingTop="16dp"/>
+        android:textSize="18sp"
+        android:paddingTop="8dp"/>
 
     <TextView
         android:id="@+id/event_artist"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:paddingBottom="16dp"/>
+        android:textSize="20sp"
+        />
 
     <TextView
         android:id="@+id/open_event"
@@ -32,22 +31,8 @@
         android:textSize="16sp"
         android:textAlignment="textEnd"
         android:layout_gravity="end"
-        android:paddingBottom="16dp"
+        android:paddingBottom="2dp"
         android:layout_marginRight="8dp"/>
-
-    <!--<Button-->
-        <!--android:id="@+id/btn_open_event"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:background="@color/SpotifyBlack"-->
-        <!--android:text="@string/event_open"-->
-        <!--android:textColor="@color/SpotifyGreen"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textAlignment="textEnd"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:paddingBottom="16dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--/>-->
 
     <View
         android:layout_width="match_parent"

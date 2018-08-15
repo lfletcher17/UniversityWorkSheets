@@ -115,7 +115,7 @@ public class LocationActivity extends AppCompatActivity implements
                     return null;
                 }
                 try {
-                    //THIS IS WHERE THE ACTUAL WORK IS TAKING PLACE!
+                    //THIS IS WHERE THE ACTUAL WORK IS TAKING PLACE! NEED TO ADD SOME ERROR HANDLING HERE FOR IF CONNECTION LOST
                     String result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildLocationUrl(queryLocation));
                     return result;
                 } catch (IOException e) {
