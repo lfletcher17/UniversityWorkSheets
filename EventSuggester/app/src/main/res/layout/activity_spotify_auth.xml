@@ -8,18 +8,32 @@
     android:background="@color/SpotifyBlack">
 
 
+    <TextView
+        android:id="@+id/location_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/location_desc"
+        android:textSize="20sp"
+        android:textColor="@color/SpotifyWhite"
+        android:layout_gravity="start"
+        android:visibility="invisible"
+        />
 
-<TextView
-    android:id="@+id/location_desc"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="40dp"
-    android:text="@string/location_desc"
-    android:textSize="20sp"
-    android:textColor="@color/SpotifyWhite"
-    android:visibility="invisible"
-    />
+    <TextView
+        android:background="@color/SpotifyBlack"
+        android:id="@+id/location_error_message"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:padding="16dp"
+        android:text="@string/auto_location_error"
+        android:textColor="@color/SpotifyWhite"
+        android:visibility="invisible" />
+
+
+
+
 
         <Button
             android:id="@+id/btn_current_location"
@@ -52,16 +66,47 @@
             android:layout_marginRight="20dp"
             android:visibility="invisible"/>
 
-    <TextView
-        android:background="@color/SpotifyBlack"
-        android:id="@+id/location_error_message"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/auto_location_error"
-        android:textColor="@color/SpotifyWhite"
-        android:visibility="invisible" />
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--/>-->
+
+    <!--<FrameLayout-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/spotify_green"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:paddingTop="20dp"-->
+            <!--android:src="@drawable/spotify_icon_green" />-->
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/by_songkick_white"-->
+            <!--android:layout_width="220dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:paddingTop="20dp"-->
+            <!--android:src="@drawable/powered_by_songkick_white" />-->
+
+        <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/es_logo"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="100dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_gravity="end"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingTop="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:src="@drawable/map" />&ndash;&gt;-->
+
+    <!--</FrameLayout>-->
+
+
+
+
+
 
 
 

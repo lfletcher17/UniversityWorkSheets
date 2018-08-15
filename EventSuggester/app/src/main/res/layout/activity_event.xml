@@ -8,8 +8,14 @@
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="16dp"
     tools:context=".EventActivity">
+
+    <ImageView
+        android:id="@+id/by_songkick_white"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:src="@drawable/powered_by_songkick_white" />
 
     <FrameLayout
         android:layout_width="match_parent"

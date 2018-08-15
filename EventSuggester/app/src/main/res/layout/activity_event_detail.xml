@@ -10,16 +10,47 @@
     android:paddingRight="16dp"
     tools:context=".EventDetailActivity">
 
-    <TextView
-        android:background="@color/SpotifyBlack"
-        android:id="@+id/event_description_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_details"
-        android:textSize="18sp"
-        android:textColor="@color/SpotifyGreen"
-        android:paddingBottom="8dp"
-        />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/by_songkick_white"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/powered_by_songkick_white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Ticket Info"
+            android:textSize="16sp"
+            android:background="@color/SpotifyBlack"
+            android:clickable="true"
+            android:textAllCaps="false"
+            android:textColor="@color/SpotifyWhite"
+            android:layout_gravity="end"/>
+
+    </FrameLayout>
+
+
+
+
+        <TextView
+            android:background="@color/SpotifyBlack"
+            android:id="@+id/event_description_title"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/event_details"
+            android:textSize="18sp"
+            android:textColor="@color/SpotifyGreen"
+            android:paddingBottom="8dp"
+            />
+
+
+
+
+
 
     <TextView
         android:background="@color/SpotifyBlack"
@@ -76,6 +107,7 @@
         android:paddingLeft="8dp"
         />
 
+
     <TextView
         android:background="@color/SpotifyBlack"
         android:id="@+id/artists"
@@ -85,7 +117,6 @@
         android:textSize="18sp"
         android:textColor="@color/SpotifyGreen"
         android:paddingBottom="8dp"
-
         />
 
     <FrameLayout
@@ -106,6 +137,10 @@
             android:visibility="invisible" />
 
     </FrameLayout>
+
+
+
+
 
 
 
