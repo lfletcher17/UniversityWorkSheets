@@ -28,11 +28,11 @@ public class SpotifyHandler {
         this.mSpotify = mSpotifyApi.getService();
     }
 
-    public Map<Artist, Integer> buildArtists () {
+    public Map<String, SpotifyArtist> buildArtists () {
 
         double totalHits = 0;
         double averageScore = 0;
-        Map<String, Artist> artistMap = new HashMap<String, Artist>();
+        Map<String, SpotifyArtist> artistMap = new HashMap<String, SpotifyArtist>();
         Map<String, Integer> artistCount = new HashMap<>();
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
@@ -42,34 +42,27 @@ public class SpotifyHandler {
         artists.addAll(getFollowedArtists());
 
         for (Artist a : artists) {
-            if (!artistCount.containsKey(a.name)) {
-                artistMap.put(a.name, a);
-                artistCount.put(a.name, 1);
+            if (!artistMap.containsKey(a.name)) {
+                artistMap.put(a.name, new SpotifyArtist(a, 1));
             } else {
-                int count = artistCount.get(a.name);
-                artistMap.put(a.name, a);
-                artistCount.put(a.name, count + 1);
+                SpotifyArtist artist  = artistMap.get(a.name);
+                int count = artist.getScore();
+                artistMap.put(a.name, new SpotifyArtist(a, count +1));
             }
         }
 
-        Map<Artist, Integer> results = new HashMap<Artist, Integer>();
-
-        for (Map.Entry entry : artistCount.entrySet()) {
-            results.put(artistMap.get(entry.getKey()), (Integer) entry.getValue());
-        }
-
-        return results;
+        return artistMap;
 
     }
 
-    public static double getMeanScore (Map<Artist, Integer> artists) {
+    public static double getMeanScore (Map<String, SpotifyArtist> artists) {
 
         double count = 0;
         double result = 0;
 
         for (Map.Entry entry : artists.entrySet()) {
-            Artist artist = (Artist) entry.getKey();
-            Integer indvCount = (Integer) entry.getValue();
+            SpotifyArtist artist = (SpotifyArtist) entry.getValue();
+            Integer indvCount = artist.getScore();
             count = count + indvCount;
         }
 

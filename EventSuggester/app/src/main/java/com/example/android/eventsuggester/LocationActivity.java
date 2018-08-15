@@ -88,7 +88,7 @@ public class LocationActivity extends AppCompatActivity implements
 //                .show();
         mLocation = selectedLocation;
         Context context = LocationActivity.this;
-        Class destinationActivity = EventActivityTest.class;
+        Class destinationActivity = EventActivity.class;
         Intent eventIntent = new Intent (context, destinationActivity);
         eventIntent.putExtra("skID", String.valueOf(selectedLocation.getId()));
         eventIntent.putExtra("spotifyToken", mSpotifyToken);
