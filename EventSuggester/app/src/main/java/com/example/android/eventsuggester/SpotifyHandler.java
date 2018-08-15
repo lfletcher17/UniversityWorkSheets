@@ -37,9 +37,9 @@ public class SpotifyHandler {
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
         artists.addAll(getTopArtists(LONG_TERM));
-        artists.addAll(getTopArtists(MEDIUM_TERM));
-        artists.addAll(getTopArtists(SHORT_TERM));
-        artists.addAll(getFollowedArtists());
+//        artists.addAll(getTopArtists(MEDIUM_TERM));
+//        artists.addAll(getTopArtists(SHORT_TERM));
+//        artists.addAll(getFollowedArtists());
 
         for (Artist a : artists) {
             if (!artistMap.containsKey(a.name)) {

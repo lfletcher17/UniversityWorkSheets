@@ -1,5 +1,7 @@
 package com.example.android.eventsuggester;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, Parcelable {
 
     private int eventID;
     private SongKickArtist headliner = null;
@@ -36,6 +38,53 @@ public class Event implements Comparable<Event> {
         this.uri = uri;
         this.performers = performers;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // write your object's data to the passed-in Parcel
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(eventID);
+        out.writeParcelable(headliner, 0);
+        out.writeString(eventName);
+        out.writeString(venue);
+        out.writeLong(date.getTime());
+        out.writeString(uri);
+        SongKickArtist[] performersArr = new SongKickArtist[performers.size()];
+        performersArr = performers.toArray(performersArr);
+        out.writeTypedArray(performersArr, 0);
+//        SongKickArtist[] performersArr = new SongKickArtist[performers.size()];
+//        performersArr = performers.toArray(performersArr);
+//        out.writeParcelableArray(performersArr);
+        //CODE TO READ DATE IN
+//        date = new Date(in.readLong());
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
+
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+
+    private Event(Parcel in) {
+        eventID = in.readInt();
+        headliner = in.readParcelable(SongKickArtist.class.getClassLoader());
+        eventName = in.readString();
+        venue = in.readString();
+        date = new Date(in.readLong());
+        uri = in.readString();
+        performers = in.createTypedArrayList(SongKickArtist.CREATOR);
+
+    }
+
 
     @Override
     public String toString() {

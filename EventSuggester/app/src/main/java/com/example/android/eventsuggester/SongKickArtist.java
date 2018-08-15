@@ -1,6 +1,11 @@
 package com.example.android.eventsuggester;
 
-public class SongKickArtist {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.Date;
+
+public class SongKickArtist implements Parcelable {
 
     private int id;
     private String name;
@@ -45,4 +50,36 @@ public class SongKickArtist {
     public void setBilling(String billing) {
         this.billing = billing;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeString(name);
+        out.writeString(uri);
+        out.writeString(billing);
+    }
+
+    public static final Parcelable.Creator<SongKickArtist> CREATOR = new Parcelable.Creator<SongKickArtist>() {
+        public SongKickArtist createFromParcel(Parcel in) {
+            return new SongKickArtist(in);
+        }
+
+        public SongKickArtist[] newArray(int size) {
+            return new SongKickArtist[size];
+        }
+    };
+
+
+    private SongKickArtist(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        uri = in.readString();
+        billing = in.readString();
+    }
+
 }

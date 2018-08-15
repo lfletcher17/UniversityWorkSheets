@@ -75,9 +75,15 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
 
     @Override
     public void onClick(Event selectedEvent) {
-        Context context = this;
-        Toast.makeText(context, selectedEvent.toString(), Toast.LENGTH_SHORT)
-                .show();
+//        Context context = this;
+//        Toast.makeText(context, selectedEvent.toString(), Toast.LENGTH_SHORT)
+//                .show();
+        Context context = EventActivity.this;
+        Class destinationActivity = EventDetailActivity.class;
+        Intent eventIntent = new Intent (context, destinationActivity);
+        eventIntent.putExtra("spotifyToken", mSpotifyToken);
+        eventIntent.putExtra("selectedEvent", selectedEvent);
+        startActivity(eventIntent);
     }
 
 
