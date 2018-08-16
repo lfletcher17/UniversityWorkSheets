@@ -2,11 +2,15 @@ package com.example.android.eventsuggester;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,8 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
 
     private RecyclerView mRecyclerView;
     private EventPerformerAdapter mPerformerAdapter;
+
+    private Button mTicketInfo;
 
     private ArrayList<SongKickArtist> mPerformersList = new ArrayList<SongKickArtist>();
 
@@ -45,6 +51,13 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
 
         mPerformersList = mEvent.getPerformers();
 
+        mTicketInfo = (Button) findViewById(R.id.btn_ticket_info);
+        mTicketInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSongKickPage();
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_eventDetailsPerformers);
         LinearLayoutManager layoutManager
@@ -55,14 +68,47 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         mPerformerAdapter.setEventData(mPerformersList);
         mRecyclerView.setAdapter(mPerformerAdapter);
 
+    }
 
+    public void openSongKickPage() {
+        String uri = mEvent.getUri();
+        Uri webpage = Uri.parse(uri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    //taken from Spotify
+    public void openSpotify() {
+        PackageManager pm = getPackageManager();
+        boolean isSpotifyInstalled;
+        try {
+            pm.getPackageInfo("com.spotify.music", 0);
+            isSpotifyInstalled = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            isSpotifyInstalled = false;
+        }
+        if (isSpotifyInstalled) {
+            //CALL SOME METHOD TO GET THE ARTIST ID BY CALLING A NEW METHOD ON mSpotifyHandler
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("spotify:album:0sNOF9WDwhWunNAHPD3Baj"));
+            intent.putExtra(Intent.EXTRA_REFERRER,
+                    Uri.parse("android-app://" + this.getPackageName()));
+            startActivity(intent);
+        } else {
+            final String appPackageName = "com.spotify.music";
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException ignored) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        }
     }
 
 
     @Override
     public void onClick(SongKickArtist selectedArtist) {
-        Context context = this;
-        Toast.makeText(context, selectedArtist.getName(), Toast.LENGTH_SHORT)
-                .show();
+        openSpotify();
     }
 }
