@@ -58,76 +58,33 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
 
         ArrayList<Event> results = new ArrayList<Event>();
 
-        //BASICALLY HAVE A CONDITIONAL HERE TO CALL APPROPRIATE HELPER METHOD BASED OFF OF FIELD VARIABLE VALUES
-        if (minDate != null) {
-            //DO ALL THE DATE STUFF - DIFFERENT METHODS DEPENDING ON TIMESPAN
-            //GET THE ARTISTS AS A MAP OF STRINGS AND SPOTIFY ARTISTS
-            mSpotifyArtists = mSpotifyHandler.buildArtists();
-            ArrayList<Event> allEvents = new ArrayList<Event>();
+//        TODO fix this to accept params - basically whether to use dates for songkick and related artists for spotify, will need to pass values to Loader constructor
+        mSpotifyArtists = mSpotifyHandler.buildArtists(2000);
+        ArrayList<Event> allEvents = new ArrayList<Event>();
 
-            //THIS SCORE WILL BE USED FOR DETERMININING RECOMMENDATIONS ETC.
-            double averageScore = SpotifyHandler.getMeanScore(mSpotifyArtists);
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.YEAR, 1);
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String todayFormatted = format1.format(min.getTime());
+        String futureFormatted = format1.format(max.getTime());
 
-            //GET ALL EVENTS FOR SPECIFIED DATES - THESE WILL NEED TO BE PASSED TO LOADER ON CONSTRUCTION
-            Calendar min = Calendar.getInstance();
-            Calendar max = Calendar.getInstance();
-            max.add(Calendar.MONTH, 1);
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String todayFormatted = format1.format(min.getTime());
-            String futureFormatted = format1.format(max.getTime());
+        try {
+            allEvents = SongKickUtils.getEventsForMetro(mLocationSkID,todayFormatted,futureFormatted);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            try {
-                allEvents = SongKickUtils.getEventsForMetro(mLocationSkID,todayFormatted,futureFormatted);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            //LOOP THE EVENTS AND SEE IF ANY HITS WITH ARTISTS
-            for (Event result : results) {
-                for (SongKickArtist a : result.getPerformers()) {
-                    if (mSpotifyArtists.containsKey(a.getName())) {
-                        results.add(result);
-                    }
-                }
-            }
-        } else {
-            //DO THE NON DATE BASED STUFF??
-            mSpotifyArtists = mSpotifyHandler.buildArtists();
-            double averageScore = SpotifyHandler.getMeanScore(mSpotifyArtists);
-            //LOOP THE ARTIST AND GET ANY EVENTS FEATURING THEM
-            for (Map.Entry entry : mSpotifyArtists.entrySet()) {
-
-                SpotifyArtist a = (SpotifyArtist) entry.getValue();
-                Artist artist = a.getArtist();
-                Log.d("CALLINGSONGKICK", "EVENTS FOR" + artist.name);
-                String result = null;
-
-                //GET THIS ARTISTS EVENTS AS STRING
-                try {
-                    result = SongKickUtils.getResponseFromHttpUrl(SongKickUtils.buildEventSearchUrl(mLocationSkID, artist.name));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //USE ARTIST STRING TO GET EVENT OBJECT
-                ArrayList<Event> events = null;
-                try {
-                    events = SongKickUtils.getEvent(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                //LOOP EVENTS AND ADD THEM TO RESULTS
-                Log.d("got events ", "for");
-                for (int i = 0; i < events.size(); i++) {
-                    results.add(events.get(i));
+        //LOOP THE EVENTS AND SEE IF ANY HITS WITH ARTISTS
+        for (Event result : allEvents) {
+            for (SongKickArtist a : result.getPerformers()) {
+                if (mSpotifyArtists.containsKey(a.getName())) {
+                    results.add(result);
                 }
             }
         }
-
-        //RETURN THE EVENTS
         return results;
     }
 

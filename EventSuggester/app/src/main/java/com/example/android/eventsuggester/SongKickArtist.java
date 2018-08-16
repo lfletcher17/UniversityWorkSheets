@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.Date;
 
+import kaaes.spotify.webapi.android.models.Artist;
+
 public class SongKickArtist implements Parcelable {
 
     private int id;

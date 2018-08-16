@@ -92,21 +92,15 @@ public final class SongKickUtils {
 
     public static ArrayList<Location> getLocation(String locationQueryResult) throws JSONException {
         JSONObject rawJSON = new JSONObject(locationQueryResult);
-//        Log.d("RAWJSON", rawJSON.toString());
         JSONObject resultsPage = rawJSON.getJSONObject("resultsPage");
-//        Log.d("RESULTSPAGE", resultsPage.toString());
         JSONObject results = resultsPage.getJSONObject("results");
-//        Log.d("RESULTS", results.toString());
         JSONArray locations = results.getJSONArray("location");
-//        Log.d("LOCATIONS", results.toString());
 
         ArrayList<Location> list = new ArrayList<Location>();
 
         for(int i=0; i<locations.length(); i++){
             JSONObject obj = locations.getJSONObject(i);
-//            Log.d("LOOPOBJ" + (i + 1), obj.toString());
             JSONObject metro = obj.getJSONObject("metroArea");
-//            Log.d("METROAREA", metro.toString());
             int metroID = metro.getInt("id");
             String city = metro.getString("displayName");
             JSONObject countryObj = metro.getJSONObject("country");
@@ -117,18 +111,15 @@ public final class SongKickUtils {
                 JSONObject stateObj = metro.getJSONObject("state");
                 String state = stateObj.getString("displayName");
                 Location location = new Location(metroID, city, state, country, lng, lat);
-//                Log.d("LISTED LOCATION", location.toString());
                 list.add(location);
             } else {
                 Location location = new Location(metroID, city, country, lng, lat);
-//                Log.d("LISTED LOCATION", location.toString());
                 list.add(location);
             }
         }
         return list;
     }
 
-    //date format 2018-09-14
 
     public static URL buildEventSearchUrl(String metroID, String minDate, String maxDate, int pageNo) {
         Log.d("METRO", metroID);
@@ -176,44 +167,49 @@ public final class SongKickUtils {
             JSONObject rawJSON = new JSONObject(jsonString);
             JSONObject resultsPage = rawJSON.getJSONObject("resultsPage");
             JSONObject results = resultsPage.getJSONObject("results");
-            JSONArray events = results.getJSONArray("event");
 
-            for (int i = 0; i < events.length(); i++) {
+            if (results.has("event")) {
+                JSONArray events = results.getJSONArray("event");
 
-                JSONObject obj = events.getJSONObject(i);
-                int eventID = obj.getInt("id");
-                count++;
+                for (int i = 0; i < events.length(); i++) {
 
-                if (!map.containsKey(eventID)) {
-                    String eventName = obj.getString("displayName");
+                    JSONObject obj = events.getJSONObject(i);
+                    int eventID = obj.getInt("id");
+                    count++;
 
-                    JSONObject venue = obj.getJSONObject("venue");
-                    String venueName = venue.getString("displayName");
+                    if (!map.containsKey(eventID)) {
+                        String eventName = obj.getString("displayName");
 
-                    JSONObject start = obj.getJSONObject("start");
-                    String date = start.getString("date");
+                        JSONObject venue = obj.getJSONObject("venue");
+                        String venueName = venue.getString("displayName");
 
-                    String uri = obj.getString("uri");
+                        JSONObject start = obj.getJSONObject("start");
+                        String date = start.getString("date");
 
-                    JSONArray performers = obj.getJSONArray("performance");
+                        String uri = obj.getString("uri");
 
-                    ArrayList<SongKickArtist> artists = new ArrayList<SongKickArtist>();
+                        JSONArray performers = obj.getJSONArray("performance");
 
-                    for (int j = 0; j < performers.length(); j++) {
-                        JSONObject performer = performers.getJSONObject(j);
-                        JSONObject artist = performer.getJSONObject("artist");
-                        int artistId = artist.getInt("id");
-                        String artistName = artist.getString("displayName");
-                        String artistUri = artist.getString("uri");
-                        String billing = performer.getString("billing");
-                        SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
-                        artists.add(skArtist);
+                        ArrayList<SongKickArtist> artists = new ArrayList<SongKickArtist>();
+
+                        for (int j = 0; j < performers.length(); j++) {
+                            JSONObject performer = performers.getJSONObject(j);
+                            JSONObject artist = performer.getJSONObject("artist");
+                            int artistId = artist.getInt("id");
+                            String artistName = artist.getString("displayName");
+                            String artistUri = artist.getString("uri");
+                            String billing = performer.getString("billing");
+                            SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
+                            artists.add(skArtist);
+                        }
+                        Event event = new Event(eventID, eventName, venueName, date, uri, artists);
+                        Log.d("event listed", event.getEventName());
+                        map.put(event.getEventID(), event);
                     }
-                    Event event = new Event(eventID, eventName, venueName, date, uri, artists);
-                    Log.d("event listed", event.getEventName());
-                    map.put(event.getEventID(), event);
-                }
 
+                }
+            } else {
+                break;
             }
             pageNo++;
 
@@ -228,15 +224,12 @@ public final class SongKickUtils {
 
         ArrayList<Event> list = new ArrayList<Event>();
         JSONObject rawJSON = new JSONObject(eventQueryResult);
-//        Log.d("RAWJSON", rawJSON.toString());
         JSONObject resultsPage = rawJSON.getJSONObject("resultsPage");
-//        Log.d("RESULTSPAGE", resultsPage.toString());
         int numberOfResults = resultsPage.getInt("totalEntries");
 
         if (numberOfResults > 0) {
 
             JSONObject results = resultsPage.getJSONObject("results");
-//            Log.d("RESULTS", results.toString());
             JSONArray events = results.getJSONArray("event");
 
             for (int i = 0; i < events.length(); i++) {

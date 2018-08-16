@@ -17,11 +17,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kaaes.spotify.webapi.android.models.Artist;
+
 public class EventDetailActivity extends AppCompatActivity implements EventPerformerAdapter.EventPerformerAdapterOnClickHandler {
 
     private String mSpotifyToken;
-    private Event mEvent;
     private SpotifyHandler mSpotifyHandler;
+    private Event mEvent;
     private TextView mEventDesc;
     private TextView mVenueDesc;
     private TextView mDateDesc;
@@ -40,6 +42,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         setContentView(R.layout.activity_event_detail);
         Intent intent = getIntent();
         mSpotifyToken = intent.getStringExtra("spotifyToken");
+        mSpotifyHandler = new SpotifyHandler(mSpotifyToken);
 
         mEvent = intent.getParcelableExtra("selectedEvent");
         mEventDesc = (TextView) findViewById(R.id.event_description);
@@ -80,7 +83,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
     }
 
     //taken from Spotify
-    public void openSpotify() {
+    public void openSpotify(SongKickArtist selectedArtist) {
         PackageManager pm = getPackageManager();
         boolean isSpotifyInstalled;
         try {
@@ -90,9 +93,9 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
             isSpotifyInstalled = false;
         }
         if (isSpotifyInstalled) {
-            //CALL SOME METHOD TO GET THE ARTIST ID BY CALLING A NEW METHOD ON mSpotifyHandler
+            Artist artist = mSpotifyHandler.getArtist(selectedArtist.getName());
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("spotify:album:0sNOF9WDwhWunNAHPD3Baj"));
+            intent.setData(Uri.parse("spotify:artist:" + artist.id));
             intent.putExtra(Intent.EXTRA_REFERRER,
                     Uri.parse("android-app://" + this.getPackageName()));
             startActivity(intent);
@@ -107,8 +110,9 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
     }
 
 
+//todo THIS NEEDS TO BE DONE VIA A LOADER
     @Override
     public void onClick(SongKickArtist selectedArtist) {
-        openSpotify();
+        openSpotify(selectedArtist);
     }
 }

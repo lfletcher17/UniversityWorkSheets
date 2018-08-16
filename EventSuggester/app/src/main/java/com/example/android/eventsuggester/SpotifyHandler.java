@@ -11,7 +11,9 @@ import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Artist;
+import kaaes.spotify.webapi.android.models.Artists;
 import kaaes.spotify.webapi.android.models.ArtistsCursorPager;
+import kaaes.spotify.webapi.android.models.ArtistsPager;
 import kaaes.spotify.webapi.android.models.Pager;
 import retrofit.RetrofitError;
 
@@ -28,31 +30,38 @@ public class SpotifyHandler {
         this.mSpotify = mSpotifyApi.getService();
     }
 
-    public Map<String, SpotifyArtist> buildArtists () {
+    //THIS METHOD NEEDS TO CALL THE DB AND ENSURE THAT BLACKLISTED ARTISTS ARE NEVER RETURNED
+    public Map<String, SpotifyArtist> buildArtists (int maxArtists) {
 
-        double totalHits = 0;
-        double averageScore = 0;
         Map<String, SpotifyArtist> artistMap = new HashMap<String, SpotifyArtist>();
-        Map<String, Integer> artistCount = new HashMap<>();
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
-        artists.addAll(getTopArtists(LONG_TERM));
-        artists.addAll(getTopArtists(MEDIUM_TERM));
-        artists.addAll(getTopArtists(SHORT_TERM));
-        artists.addAll(getFollowedArtists());
+        artists.addAll(getFollowedArtists(maxArtists - artists.size()));
+        artists.addAll(getTopArtists(LONG_TERM, maxArtists - artists.size()));
+        artists.addAll(getTopArtists(MEDIUM_TERM, maxArtists - artists.size()));
+        artists.addAll(getTopArtists(SHORT_TERM, maxArtists - artists.size()));
 
-        for (Artist a : artists) {
+        ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
+
+        int count = 0;
+        while (relatedArtists.size() + artists.size() < maxArtists && count < artists.size()) {
+            Artist artist = artists.get(count);
+            Log.d("RELATED", "artists of: " + artists.get(count));
+            artists.addAll(getRelatedArtist(artist.id));
+            count++;
+        }
+
+        for (Artist a: artists) {
             if (!artistMap.containsKey(a.name)) {
                 artistMap.put(a.name, new SpotifyArtist(a, 1));
             } else {
                 SpotifyArtist artist  = artistMap.get(a.name);
-                int count = artist.getScore();
+                count = artist.getScore();
                 artistMap.put(a.name, new SpotifyArtist(a, count +1));
             }
         }
 
         return artistMap;
-
     }
 
     public static double getMeanScore (Map<String, SpotifyArtist> artists) {
@@ -70,7 +79,8 @@ public class SpotifyHandler {
         return result;
     }
 
-    private ArrayList<Artist> getFollowedArtists() {
+
+    private ArrayList<Artist> getFollowedArtists(int maxArtists) {
 
         final ArrayList<Artist> followedArtists = new ArrayList<Artist>();
         int followedArtistCount = 0;
@@ -78,7 +88,7 @@ public class SpotifyHandler {
         map.put(SpotifyService.LIMIT, 50);
 
         try {
-            while (followedArtists.size() % 50 == 0 && followedArtists.size()< 1000) {
+            while (followedArtists.size() % 50 == 0 && followedArtists.size()< maxArtists) {
 
                 ArtistsCursorPager followedArtistPager = mSpotify.getFollowedArtists(map);
                 List<Artist> artists = followedArtistPager.artists.items;
@@ -102,7 +112,7 @@ public class SpotifyHandler {
     }
 
 
-    private ArrayList<Artist> getTopArtists(final String term) {
+    private ArrayList<Artist> getTopArtists(final String term, int maxArtists) {
 
         final ArrayList<Artist> topArtists = new ArrayList<Artist>();
         int offset = 0;
@@ -112,7 +122,7 @@ public class SpotifyHandler {
         map.put(SpotifyService.OFFSET, offset);
         map.put(SpotifyService.TIME_RANGE, term);
         try {
-            while (topArtists.size() % 50 == 0 && topArtists.size() < 1000) {
+            while (topArtists.size() % 50 == 0 && topArtists.size() < maxArtists) {
 
                 Pager<Artist> topArtistPager = mSpotify.getTopArtists(map);
                 List<Artist> artists = topArtistPager.items;
@@ -132,6 +142,32 @@ public class SpotifyHandler {
             Log.d("ERROR", spotifyError.toString());
         }
         return topArtists;
+    }
+
+    private ArrayList<Artist> getRelatedArtist(final String id) {
+
+        final ArrayList<Artist> topArtists = new ArrayList<Artist>();
+        try {
+            Artists relatedArtists = mSpotify.getRelatedArtists(id);
+            topArtists.addAll(relatedArtists.artists);
+        } catch (RetrofitError e){
+            Log.d("", "TOO MANY SPOTIFY REQUESTS!");
+        }
+
+        return topArtists;
+
+    }
+
+    public Artist getArtist (String name) {
+        Artist result = new Artist();
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put(SpotifyService.LIMIT, 1);
+        try {
+            ArtistsPager topArtistPager = mSpotify.searchArtists(name);
+        } catch (RetrofitError error) {
+            Log.d("error", error.toString());
+        }
+        return result;
     }
 
 

@@ -8,7 +8,7 @@ public class SpotifyArtist {
     private Artist artist;
     private int score;
 
-    public SpotifyArtist (Artist artist, int Score) {
+    public SpotifyArtist (Artist artist, int score) {
         this.artist = artist;
         this.score = score;
     }
