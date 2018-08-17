@@ -94,7 +94,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
             Calendar min = Calendar.getInstance();
             Calendar max = Calendar.getInstance();
             max.add(Calendar.MONTH, 1);
-            Boolean includeRelatedArtists = false;
+            Boolean includeRelatedArtists = true;
 
             return new EventLoader(context, mSpotifyHandler, mlocationSkID, min, max, includeRelatedArtists);
         }

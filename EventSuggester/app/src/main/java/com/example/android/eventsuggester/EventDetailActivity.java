@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -131,7 +132,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         protected String doInBackground(SongKickArtist... songKickArtists) {
             SongKickArtist artist = songKickArtists[0];
             String artistID = mSpotifyHandler.getArtistID(artist.getName());
-            return null;
+            return artistID;
         }
 
         @Override
