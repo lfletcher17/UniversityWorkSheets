@@ -3,6 +3,7 @@ package com.example.android.eventsuggester;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,18 +42,6 @@ public class SpotifyHandler {
         artists.addAll(getTopArtists(SHORT_TERM, maxArtists - artists.size()));
         artists.addAll(getFollowedArtists(maxArtists - artists.size()));
 
-
-        if (includeRelatedArtists) {
-            ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
-            int count = 0;
-            while (relatedArtists.size() + artists.size() < maxArtists && count < artists.size()) {
-                Artist artist = artists.get(count);
-                Log.d("RELATED", "artists of: " + artists.get(count));
-                artists.addAll(getRelatedArtist(artist.id));
-                count++;
-            }
-        }
-
         int count = 0;
         for (Artist a: artists) {
             if (!artistMap.containsKey(a.name)) {
@@ -61,6 +50,32 @@ public class SpotifyHandler {
                 SpotifyArtist artist  = artistMap.get(a.name);
                 count = artist.getScore();
                 artistMap.put(a.name, new SpotifyArtist(a, count +1));
+            }
+        }
+
+        if (includeRelatedArtists) {
+            ArrayList spotifyArtists = new ArrayList<SpotifyArtist>();
+            spotifyArtists.addAll(artistMap.values());
+            Collections.sort(spotifyArtists);
+            ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
+            count = 0;
+
+            while (relatedArtists.size() + spotifyArtists.size() < maxArtists && count < spotifyArtists.size()) {
+                SpotifyArtist artist = (SpotifyArtist) spotifyArtists.get(count);
+                relatedArtists.addAll(getRelatedArtist(artist.getArtist().id));
+                count++;
+            }
+
+
+            count = 0;
+            for (Artist a: relatedArtists) {
+                if (!artistMap.containsKey(a.name)) {
+                    artistMap.put(a.name, new SpotifyArtist(a, 1));
+                } else {
+                    SpotifyArtist artist  = artistMap.get(a.name);
+                    count = artist.getScore();
+                    artistMap.put(a.name, new SpotifyArtist(a, count +1));
+                }
             }
         }
 
@@ -149,15 +164,14 @@ public class SpotifyHandler {
 
     private ArrayList<Artist> getRelatedArtist(final String id) {
 
-        final ArrayList<Artist> topArtists = new ArrayList<Artist>();
+        ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
         try {
-            Artists relatedArtists = mSpotify.getRelatedArtists(id);
-            topArtists.addAll(relatedArtists.artists);
+            Artists artists = mSpotify.getRelatedArtists(id);
+            relatedArtists.addAll(artists.artists);
         } catch (RetrofitError e){
             Log.d("", "TOO MANY SPOTIFY REQUESTS!");
         }
-
-        return topArtists;
+        return relatedArtists;
 
     }
 

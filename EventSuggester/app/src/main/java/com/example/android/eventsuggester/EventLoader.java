@@ -59,7 +59,7 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
         ArrayList<Event> results = new ArrayList<Event>();
 
 //        TODO fix this to accept params - basically whether to use dates for songkick and related artists for spotify, will need to pass values to Loader constructor
-        mSpotifyArtists = mSpotifyHandler.buildArtists(2000, includeRelatedArtists);
+        mSpotifyArtists = mSpotifyHandler.buildArtists(4000, includeRelatedArtists);
         ArrayList<Event> allEvents = new ArrayList<Event>();
 
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");

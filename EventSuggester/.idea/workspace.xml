@@ -49,51 +49,121 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventDetailActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventDetailActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-134">
-              <caret line="113" column="59" lean-forward="false" selection-start-line="113" selection-start-column="59" selection-end-line="113" selection-end-column="59" />
-              <folding>
-                <element signature="e#2462#2614#0" expanded="true" />
-                <element signature="e#2613#2614#0" expanded="true" />
-                <element signature="e#5345#5346#0" expanded="true" />
-                <element signature="e#5383#5384#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpotifyHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SpotifyHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2310">
-              <caret line="169" column="17" lean-forward="false" selection-start-line="169" selection-start-column="17" selection-end-line="169" selection-end-column="17" />
+            <state relative-caret-position="2460">
+              <caret line="180" column="38" lean-forward="false" selection-start-line="180" selection-start-column="38" selection-end-line="180" selection-end-column="38" />
               <folding>
-                <element signature="e#6043#6059#0" expanded="true" />
+                <element signature="e#6662#6678#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_event_detail.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
+      <file leaf-file-name="EventLoader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="167" column="41" lean-forward="false" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+            <state relative-caret-position="690">
+              <caret line="61" column="56" lean-forward="false" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java">
+      <file leaf-file-name="Collections.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-25/android.jar!/java/util/Collections.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="96" column="49" lean-forward="false" selection-start-line="96" selection-start-column="49" selection-end-line="96" selection-end-column="49" />
+            <state relative-caret-position="134">
+              <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+              <folding>
+                <marker date="1532101293277" expanded="false" signature="0:104" ph="/.../" />
+                <marker date="1532101293277" expanded="false" signature="311:322" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="358:364" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="442:494" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="567:619" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="711:763" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="860:912" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="958:969" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="1005:1011" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="1057:1068" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="1104:1110" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="1168:1179" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="1215:1221" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="1278:1289" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="1325:1331" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="1394:1446" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="1525:1577" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="1676:1728" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="1816:1868" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="1967:2019" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2107:2159" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="2218:2229" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="2265:2271" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="2348:2400" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2471:2523" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2598:2650" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2738:2790" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2857:2909" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="2984:3036" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3109:3161" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3247:3299" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3393:3445" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3523:3575" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="3631:3642" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="3678:3684" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="3759:3811" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3874:3926" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="3992:4044" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4128:4180" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4268:4320" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4387:4439" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4524:4576" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4649:4701" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4800:4852" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="4969:5021" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="5072:5083" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5119:5125" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5184:5195" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5231:5237" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5294:5305" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5341:5347" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5394:5405" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5441:5447" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5496:5507" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5543:5549" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5602:5613" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5649:5655" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5700:5711" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5747:5753" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="5803:5814" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="5850:5856" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="5922:5974" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="6025:6036" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="6072:6078" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="6130:6141" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="6177:6183" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="6253:6305" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="6373:6425" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="6484:6495" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="6531:6537" ph=" }" />
+                <marker date="1532101293277" expanded="false" signature="6597:6608" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="6644:6650" ph=" }" />
+                <marker date="1532101293277" expanded="true" signature="6723:6775" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="6871:6923" ph="{...}" />
+                <marker date="1532101293277" expanded="true" signature="6989:7041" ph="{...}" />
+                <marker date="1532101293277" expanded="false" signature="7101:7112" ph=" { " />
+                <marker date="1532101293277" expanded="false" signature="7148:7154" ph=" }" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpotifyArtist.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyArtist.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -114,14 +184,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>findLoc</find>
-      <find>getEvent</find>
-      <find>offset</find>
       <find>getArt</find>
       <find>system</find>
       <find>syst</find>
       <find>button</find>
-      <find>log</find>
       <find>finde</find>
       <find>oncrea</find>
       <find>mLoadingIndicator.setVisibility(View.VISIBLE);</find>
@@ -144,6 +210,10 @@
       <find>%</find>
       <find>artistpa</find>
       <find>asynctask</find>
+      <find>compare</find>
+      <find>sort</find>
+      <find>build</find>
+      <find>log</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app</dir>
@@ -2193,7 +2263,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/LocationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_spotify_auth.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/event_performer_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyArtist.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SongKickUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SongKickArtist.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/Event.java" />
@@ -2201,12 +2270,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SwipeToDeleteCallback.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SwipeToDeleteCallback.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyAuthActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventLoader.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_event_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyArtist.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventLoader.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyHandler.java" />
       </list>
     </option>
   </component>
@@ -2701,7 +2771,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventAdapterTest.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/LocationAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -2926,14 +2995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyArtist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="12" column="27" lean-forward="false" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/event_performer_list_item.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3012,22 +3073,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-655">
-          <caret line="57" column="46" lean-forward="false" selection-start-line="57" selection-start-column="46" selection-end-line="57" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SongKickUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-280">
-          <caret line="231" column="70" lean-forward="false" selection-start-line="231" selection-start-column="70" selection-end-line="231" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/LocationActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2245">
@@ -3055,24 +3100,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
-          <caret line="169" column="17" lean-forward="false" selection-start-line="169" selection-start-column="17" selection-end-line="169" selection-end-column="17" />
-          <folding>
-            <element signature="e#6043#6059#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_spotify_auth.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3086,23 +3113,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="96" column="49" lean-forward="false" selection-start-line="96" selection-start-column="49" selection-end-line="96" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-134">
           <caret line="113" column="59" lean-forward="false" selection-start-line="113" selection-start-column="59" selection-end-line="113" selection-end-column="59" />
           <folding>
-            <element signature="e#2462#2614#0" expanded="true" />
-            <element signature="e#2613#2614#0" expanded="true" />
-            <element signature="e#5345#5346#0" expanded="true" />
-            <element signature="e#5383#5384#0" expanded="true" />
+            <element signature="e#2462#2614#0" expanded="false" />
+            <element signature="e#2613#2614#0" expanded="false" />
+            <element signature="e#5345#5346#0" expanded="false" />
+            <element signature="e#5383#5384#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3112,9 +3131,145 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="167" column="41" lean-forward="false" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+        <state relative-caret-position="296">
+          <caret line="179" column="0" lean-forward="false" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="38" lean-forward="false" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SongKickUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="25" column="70" lean-forward="false" selection-start-line="25" selection-start-column="69" selection-end-line="25" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-25/android.jar!/java/util/Collections.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="16" column="57" lean-forward="false" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
+          <folding>
+            <marker date="1532101293277" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1532101293277" expanded="false" signature="311:322" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="358:364" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="442:494" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="567:619" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="711:763" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="860:912" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="958:969" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="1005:1011" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="1057:1068" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="1104:1110" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="1168:1179" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="1215:1221" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="1278:1289" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="1325:1331" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="1394:1446" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="1525:1577" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="1676:1728" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="1816:1868" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="1967:2019" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2107:2159" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="2218:2229" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="2265:2271" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="2348:2400" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2471:2523" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2598:2650" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2738:2790" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2857:2909" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="2984:3036" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3109:3161" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3247:3299" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3393:3445" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3523:3575" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="3631:3642" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="3678:3684" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="3759:3811" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3874:3926" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="3992:4044" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4128:4180" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4268:4320" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4387:4439" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4524:4576" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4649:4701" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4800:4852" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="4969:5021" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="5072:5083" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5119:5125" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5184:5195" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5231:5237" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5294:5305" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5341:5347" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5394:5405" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5441:5447" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5496:5507" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5543:5549" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5602:5613" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5649:5655" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5700:5711" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5747:5753" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="5803:5814" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="5850:5856" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="5922:5974" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="6025:6036" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="6072:6078" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="6130:6141" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="6177:6183" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="6253:6305" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="6373:6425" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="6484:6495" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="6531:6537" ph=" }" />
+            <marker date="1532101293277" expanded="false" signature="6597:6608" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="6644:6650" ph=" }" />
+            <marker date="1532101293277" expanded="true" signature="6723:6775" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="6871:6923" ph="{...}" />
+            <marker date="1532101293277" expanded="true" signature="6989:7041" ph="{...}" />
+            <marker date="1532101293277" expanded="false" signature="7101:7112" ph=" { " />
+            <marker date="1532101293277" expanded="false" signature="7148:7154" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="125" column="22" lean-forward="false" selection-start-line="125" selection-start-column="22" selection-end-line="125" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyArtist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="46" column="19" lean-forward="false" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/EventLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="61" column="56" lean-forward="false" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/eventsuggester/SpotifyHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2460">
+          <caret line="180" column="38" lean-forward="false" selection-start-line="180" selection-start-column="38" selection-end-line="180" selection-end-column="38" />
+          <folding>
+            <element signature="e#6662#6678#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
