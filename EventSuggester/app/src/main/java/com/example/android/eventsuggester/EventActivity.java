@@ -15,7 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Map;
 
@@ -88,7 +90,13 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
         @Override
         public Loader<ArrayList<Event>> onCreateLoader(int id, Bundle args) {
             Context context = getApplicationContext();
-            return new EventLoader(context, mSpotifyHandler, mlocationSkID);
+//            TODO figure out how to establish the Loader constructor variables - i.e. not hardcoded!!
+            Calendar min = Calendar.getInstance();
+            Calendar max = Calendar.getInstance();
+            max.add(Calendar.MONTH, 1);
+            Boolean includeRelatedArtists = false;
+
+            return new EventLoader(context, mSpotifyHandler, mlocationSkID, min, max, includeRelatedArtists);
         }
 
         @Override

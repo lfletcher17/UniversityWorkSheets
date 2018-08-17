@@ -60,7 +60,7 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
         builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read", "user-top-read"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, SPOTIFY_REQUEST_CODE, request);
-
+//TODO add a loader / AsyncTask to pull back the user's information to personalise the app (with username etc.)
     }
 
     public void checkLocationPermission() {

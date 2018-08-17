@@ -11,7 +11,6 @@
     android:paddingTop="16dp"
     tools:context=".LocationActivity">
 
-
     <EditText
         android:background="@color/SpotifyBlack"
         android:id="@+id/location_search_box"

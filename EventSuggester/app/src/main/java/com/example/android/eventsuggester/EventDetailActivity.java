@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import kaaes.spotify.webapi.android.models.Artist;
@@ -32,6 +34,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
     private EventPerformerAdapter mPerformerAdapter;
 
     private Button mTicketInfo;
+    private Button mAddToCalendar;
 
     private ArrayList<SongKickArtist> mPerformersList = new ArrayList<SongKickArtist>();
 
@@ -61,6 +64,13 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
                 openSongKickPage();
             }
         });
+        mAddToCalendar = (Button) findViewById(R.id.btn_add_to_calendar);
+        mAddToCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addToCalendar();
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_eventDetailsPerformers);
         LinearLayoutManager layoutManager
@@ -82,8 +92,15 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         }
     }
 
+//    TODO ammend code so that this actually adds event to users calendar and saves songkickID to DB
+    //TODO possible... if a user attends an event, the headliner should be stored in db as a favored artist? used first for related artists!!
+    public void addToCalendar () {
+        Toast toast = Toast.makeText(this, "addToCalendar", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
     //taken from Spotify
-    public void openSpotify(SongKickArtist selectedArtist) {
+    public void openSpotify(String artistID) {
         PackageManager pm = getPackageManager();
         boolean isSpotifyInstalled;
         try {
@@ -93,9 +110,8 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
             isSpotifyInstalled = false;
         }
         if (isSpotifyInstalled) {
-            Artist artist = mSpotifyHandler.getArtist(selectedArtist.getName());
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("spotify:artist:" + artist.id));
+            intent.setData(Uri.parse("spotify:artist:" + artistID));
             intent.putExtra(Intent.EXTRA_REFERRER,
                     Uri.parse("android-app://" + this.getPackageName()));
             startActivity(intent);
@@ -109,10 +125,27 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         }
     }
 
+    public class GetSpotifyArtistTask extends AsyncTask<SongKickArtist, Void, String> {
 
-//todo THIS NEEDS TO BE DONE VIA A LOADER
+        @Override
+        protected String doInBackground(SongKickArtist... songKickArtists) {
+            SongKickArtist artist = songKickArtists[0];
+            String artistID = mSpotifyHandler.getArtistID(artist.getName());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            openSpotify(s);
+        }
+    }
+
+
+
+
+//todo THIS NEEDS TO BE DONE VIA AN ASYNCTASK
     @Override
     public void onClick(SongKickArtist selectedArtist) {
-        openSpotify(selectedArtist);
+        new GetSpotifyArtistTask().execute(selectedArtist);
     }
 }

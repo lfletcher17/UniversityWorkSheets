@@ -19,28 +19,27 @@ import kaaes.spotify.webapi.android.models.Artist;
 
 public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
 
+
     private SpotifyHandler mSpotifyHandler;
-    //THIS WILL ACTUALLY BE STORED AS A PREFERENCE
+
+//TODO locationID will be stored as a preference, will need to be retrieved as such
     private String mLocationSkID;
-    private Map<String, SpotifyArtist> mSpotifyArtists;
-    //CAN STORE ALL SORTS OF PARAMS HERE I.E. DATE RANGES
     private ArrayList<Event> cachedData;
+    private Map<String, SpotifyArtist> mSpotifyArtists;
+
+//    TODO below field variables need to be established via constructor
+    private Boolean includeRelatedArtists;
     private Calendar minDate;
     private Calendar maxDate;
 
 
-    public EventLoader(Context context, SpotifyHandler spotifyHandler, String skLocation) {
-        super(context);
-        mSpotifyHandler = spotifyHandler;
-        this.mLocationSkID = skLocation;
-    }
-
-    public EventLoader(Context context, SpotifyHandler spotifyHandler, String skLocation, Calendar minDate, Calendar maxDate) {
+    public EventLoader(Context context, SpotifyHandler spotifyHandler, String skLocation, Calendar minDate, Calendar maxDate, Boolean includeRelatedArtists) {
         super(context);
         mSpotifyHandler = spotifyHandler;
         this.mLocationSkID = skLocation;
         this.minDate = minDate;
         this.maxDate = maxDate;
+        this.includeRelatedArtists = includeRelatedArtists;
     }
 
     @Override
@@ -53,24 +52,22 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
 
     }
 
+//    TODO find way of publishing progress to the UI?? Like progressUpdate() for AsyncTask
     @Override
     public ArrayList<Event> loadInBackground() {
 
         ArrayList<Event> results = new ArrayList<Event>();
 
 //        TODO fix this to accept params - basically whether to use dates for songkick and related artists for spotify, will need to pass values to Loader constructor
-        mSpotifyArtists = mSpotifyHandler.buildArtists(2000);
+        mSpotifyArtists = mSpotifyHandler.buildArtists(2000, includeRelatedArtists);
         ArrayList<Event> allEvents = new ArrayList<Event>();
 
-        Calendar min = Calendar.getInstance();
-        Calendar max = Calendar.getInstance();
-        max.add(Calendar.YEAR, 1);
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        String todayFormatted = format1.format(min.getTime());
-        String futureFormatted = format1.format(max.getTime());
+        String startFormatted = format1.format(minDate.getTime());
+        String futureFormatted = format1.format(maxDate.getTime());
 
         try {
-            allEvents = SongKickUtils.getEventsForMetro(mLocationSkID,todayFormatted,futureFormatted);
+            allEvents = SongKickUtils.getEventsForMetro(mLocationSkID,startFormatted,futureFormatted);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

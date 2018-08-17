@@ -56,11 +56,6 @@ public class Event implements Comparable<Event>, Parcelable {
         SongKickArtist[] performersArr = new SongKickArtist[performers.size()];
         performersArr = performers.toArray(performersArr);
         out.writeTypedArray(performersArr, 0);
-//        SongKickArtist[] performersArr = new SongKickArtist[performers.size()];
-//        performersArr = performers.toArray(performersArr);
-//        out.writeParcelableArray(performersArr);
-        //CODE TO READ DATE IN
-//        date = new Date(in.readLong());
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {

@@ -18,4 +18,6 @@
     <string name="venue">Venue</string>
     <string name="date">Date</string>
     <string name="ticket_info">Ticket Info</string>
+    <string name="attend_event">Attend</string>
+
 </resources>

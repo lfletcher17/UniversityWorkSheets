@@ -30,27 +30,30 @@ public class SpotifyHandler {
         this.mSpotify = mSpotifyApi.getService();
     }
 
-    //THIS METHOD NEEDS TO CALL THE DB AND ENSURE THAT BLACKLISTED ARTISTS ARE NEVER RETURNED
-    public Map<String, SpotifyArtist> buildArtists (int maxArtists) {
+    //TODO THIS METHOD NEEDS TO CALL THE DB AND ENSURE THAT BLACKLISTED ARTISTS ARE NEVER RETURNED
+    public Map<String, SpotifyArtist> buildArtists (int maxArtists, boolean includeRelatedArtists) {
 
         Map<String, SpotifyArtist> artistMap = new HashMap<String, SpotifyArtist>();
 
         ArrayList<Artist> artists = new ArrayList<Artist>();
-        artists.addAll(getFollowedArtists(maxArtists - artists.size()));
         artists.addAll(getTopArtists(LONG_TERM, maxArtists - artists.size()));
         artists.addAll(getTopArtists(MEDIUM_TERM, maxArtists - artists.size()));
         artists.addAll(getTopArtists(SHORT_TERM, maxArtists - artists.size()));
+        artists.addAll(getFollowedArtists(maxArtists - artists.size()));
 
-        ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
 
-        int count = 0;
-        while (relatedArtists.size() + artists.size() < maxArtists && count < artists.size()) {
-            Artist artist = artists.get(count);
-            Log.d("RELATED", "artists of: " + artists.get(count));
-            artists.addAll(getRelatedArtist(artist.id));
-            count++;
+        if (includeRelatedArtists) {
+            ArrayList<Artist> relatedArtists = new ArrayList<Artist>();
+            int count = 0;
+            while (relatedArtists.size() + artists.size() < maxArtists && count < artists.size()) {
+                Artist artist = artists.get(count);
+                Log.d("RELATED", "artists of: " + artists.get(count));
+                artists.addAll(getRelatedArtist(artist.id));
+                count++;
+            }
         }
 
+        int count = 0;
         for (Artist a: artists) {
             if (!artistMap.containsKey(a.name)) {
                 artistMap.put(a.name, new SpotifyArtist(a, 1));
@@ -158,16 +161,17 @@ public class SpotifyHandler {
 
     }
 
-    public Artist getArtist (String name) {
+    public String getArtistID (String name) {
         Artist result = new Artist();
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put(SpotifyService.LIMIT, 1);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put(SpotifyService.LIMIT, 1);
         try {
             ArtistsPager topArtistPager = mSpotify.searchArtists(name);
+            result = topArtistPager.artists.items.get(0);
         } catch (RetrofitError error) {
             Log.d("error", error.toString());
         }
-        return result;
+        return result.id;
     }
 
 

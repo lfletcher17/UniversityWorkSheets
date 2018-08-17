@@ -39,6 +39,8 @@
             android:textColor="@color/SpotifyWhite"
             android:layout_gravity="end"/>
 
+
+
         </FrameLayout>
 
 <ScrollView
@@ -155,19 +157,25 @@
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
 
-            <ProgressBar
-                android:id="@+id/loading_indicator"
-                android:layout_height="42dp"
-                android:layout_width="42dp"
-                android:layout_gravity="center"
-                android:visibility="invisible" />
 
         </FrameLayout>
 
 
 
 
-
+    <Button
+        android:layout_marginTop="15dp"
+        android:id="@+id/btn_add_to_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
+        android:padding="10dp"
+        android:text="@string/attend_event"
+        android:textColor="@color/SpotifyBlack"
+        android:textSize="18sp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        />
 
 
 
