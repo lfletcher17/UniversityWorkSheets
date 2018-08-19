@@ -95,6 +95,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
 
 //    TODO ammend code so that this actually adds event to users calendar and saves songkickID to DB
     //TODO possible... if a user attends an event, the headliner should be stored in db as a favored artist? used first for related artists!!
+    //TODO remove duplicates from event activity
     public void addToCalendar () {
         Toast toast = Toast.makeText(this, "addToCalendar", Toast.LENGTH_LONG);
         toast.show();
@@ -142,11 +143,9 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
     }
 
 
-
-
-//todo THIS NEEDS TO BE DONE VIA AN ASYNCTASK
     @Override
     public void onClick(SongKickArtist selectedArtist) {
+
         new GetSpotifyArtistTask().execute(selectedArtist);
     }
 }

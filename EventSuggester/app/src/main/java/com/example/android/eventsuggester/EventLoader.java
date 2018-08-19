@@ -74,14 +74,18 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
             e.printStackTrace();
         }
 
+//        TODO figure out how to remove duplicates!! THINK ABOUT ADDING THE SPOTIFY ARTIST TO THE EVENT HERE?? AND UPDATE ADAPTER
         //LOOP THE EVENTS AND SEE IF ANY HITS WITH ARTISTS
         for (Event result : allEvents) {
             for (SongKickArtist a : result.getPerformers()) {
                 if (mSpotifyArtists.containsKey(a.getName())) {
+//                    mSpotifyArtists.remove(a.getName());
+                    //ABOVE LINE SHOULD WORK
                     results.add(result);
                 }
             }
         }
+
         return results;
     }
 

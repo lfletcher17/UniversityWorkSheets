@@ -151,4 +151,5 @@ public class Event implements Comparable<Event>, Parcelable {
         DateFormat df = new SimpleDateFormat("E, MMM dd yyyy");
         return df.format(this.date);
     }
+
 }
