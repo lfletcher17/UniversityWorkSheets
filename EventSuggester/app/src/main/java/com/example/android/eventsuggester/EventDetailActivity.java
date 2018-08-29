@@ -6,10 +6,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,8 +20,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.eventsuggester.Database.AppDatabase;
+import com.example.android.eventsuggester.Database.EventEntity;
+
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Artist;
 
@@ -38,6 +46,8 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
     private Button mAddToCalendar;
 
     private ArrayList<SongKickArtist> mPerformersList = new ArrayList<SongKickArtist>();
+
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +83,9 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
             }
         });
 
+
+        mDb = AppDatabase.getsInstance(getApplicationContext());
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_eventDetailsPerformers);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this);
@@ -93,12 +106,31 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         }
     }
 
+    //THIS ALL NEEDS TO BE ASYNCTASK
 //    TODO ammend code so that this actually adds event to users calendar and saves songkickID to DB
     //TODO possible... if a user attends an event, the headliner should be stored in db as a favored artist? used first for related artists!!
     //TODO remove duplicates from event activity
     public void addToCalendar () {
-        Toast toast = Toast.makeText(this, "addToCalendar", Toast.LENGTH_LONG);
-        toast.show();
+        EventEntity entity = new EventEntity(mEvent.getEventID());
+        List<EventEntity> dbEvents = mDb.eventEntityDao().loadAllEvents();
+        boolean commitdB = true;
+        for (EventEntity e : dbEvents) {
+            if (e.getEventId() == entity.getEventId()) {
+                commitdB = false;
+            }
+        }
+        if (commitdB == true) {
+            Log.d("DB", "committed to db");
+            mDb.eventEntityDao().insertEvent(entity);
+        }
+        Intent calIntent = new Intent(Intent.ACTION_INSERT);
+        calIntent.setType("vnd.android.cursor.item/event");
+        calIntent.putExtra(CalendarContract.Events.TITLE, mEvent.getEventName());
+        calIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, mEvent.getVenue());
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                mEvent.getDate().getTime());
+        startActivity(calIntent);
     }
 
     //taken from Spotify
@@ -141,6 +173,13 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
             openSpotify(s);
         }
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.settings_menu, menu);
+//        return true;
+//    }
 
 
     @Override

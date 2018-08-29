@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -48,7 +51,6 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
 
     private RecyclerView mRecyclerView;
     private EventAdapter mEventAdapter;
-    private AppDatabase mDb;
 
 
 
@@ -77,12 +79,10 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
 
         Calendar min = Calendar.getInstance();
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.MONTH, 12);
+        max.add(Calendar.MONTH, 3);
         Bundle queryBundle = new Bundle();
         queryBundle.putLong(MIN_DATE, min.getTimeInMillis());
         queryBundle.putLong(MAX_DATE, max.getTimeInMillis());
-
-        mDb = AppDatabase.getsInstance(getApplicationContext());
 
         getSupportLoaderManager().initLoader(EVENT_DATA_LOADERID, queryBundle, loaderCallbacks);
     }
@@ -113,6 +113,23 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
         startActivity(eventIntent);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            Intent startSettings = new Intent(this, SettingsActivity.class);
+            startActivity(startSettings);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private LoaderManager.LoaderCallbacks<ArrayList<Event>> loaderCallbacks = new LoaderManager.LoaderCallbacks<ArrayList<Event>>() {
         @Override
