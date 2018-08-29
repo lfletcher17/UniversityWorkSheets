@@ -157,6 +157,56 @@ public final class SongKickUtils {
         return url;
     }
 
+    public static URL buildEventSearchUrl(String eventID) {
+        Log.d("METRO", eventID);
+        try {
+            eventID = URLEncoder.encode(eventID, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String urlString = SONGKICK_URL + "/events/" +  eventID +".json?" +"apikey=" + SONGKICK_API_KEY;
+        URL url = null;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return url;
+    }
+
+    public static Event getEventByID(String eventID) throws IOException, JSONException {
+        Event result = null;
+        String jsonString = getResponseFromHttpUrl(buildEventSearchUrl(eventID));
+        JSONObject rawJSON = new JSONObject(jsonString);
+        JSONObject resultsPage = rawJSON.getJSONObject("resultsPage");
+        JSONObject results = resultsPage.getJSONObject("results");
+        if (results.has("event")) {
+            JSONObject event = results.getJSONObject("event");
+            int id = event.getInt("id");
+            String eventName = event.getString("displayName");
+            JSONObject venue = event.getJSONObject("venue");
+            String venueName = venue.getString("displayName");
+            JSONObject start = event.getJSONObject("start");
+            String date = start.getString("date");
+            String uri = event.getString("uri");
+            JSONArray performers = event.getJSONArray("performance");
+            ArrayList<SongKickArtist> artists = new ArrayList<SongKickArtist>();
+            for (int j = 0; j < performers.length(); j++) {
+                JSONObject performer = performers.getJSONObject(j);
+                JSONObject artist = performer.getJSONObject("artist");
+                int artistId = artist.getInt("id");
+                String artistName = artist.getString("displayName");
+                String artistUri = artist.getString("uri");
+                String billing = performer.getString("billing");
+                SongKickArtist skArtist = new SongKickArtist(artistId, artistName, artistUri, billing);
+                artists.add(skArtist);
+            }
+            result = new Event(id, eventName, venueName, date, uri, artists);
+        }
+        return result;
+
+    }
+
     public static ArrayList<Event> getEventsForMetro (String metroID, String minDate, String maxDate) throws IOException, JSONException {
         Map<Integer, Event> map = new HashMap<Integer, Event>();
         int pageNo = 0;

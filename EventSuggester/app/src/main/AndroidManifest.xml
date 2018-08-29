@@ -38,7 +38,8 @@
         <activity
             android:name=".SettingsActivity"
             android:theme="@style/SpotifyTheme" />
-        <activity android:name=".MyEventsActivity"></activity>
+        <activity android:name=".MyEventsActivity"
+            android:theme="@style/SpotifyTheme"/>
     </application>
 
 </manifest>

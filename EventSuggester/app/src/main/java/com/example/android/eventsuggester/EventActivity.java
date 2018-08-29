@@ -129,8 +129,10 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
             startActivity(startSettings);
             return true;
         } else if (id == R.id.my_events) {
-            Toast toast = Toast.makeText(this, "loadMyEvents", Toast.LENGTH_LONG);
-            toast.show();
+            Intent startMyEvents = new Intent(this, MyEventsActivity.class);
+            startMyEvents.putExtra("spotifyToken", mSpotifyToken);
+            startActivity(startMyEvents);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
