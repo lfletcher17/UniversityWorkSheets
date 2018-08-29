@@ -26,6 +26,7 @@ public class SpotifyHandler {
     private SpotifyApi mSpotifyApi = new SpotifyApi();
     private SpotifyService mSpotify;
 
+
     public SpotifyHandler (String spotifyToken) {
         this.mSpotifyApi.setAccessToken(spotifyToken);
         this.mSpotify = mSpotifyApi.getService();

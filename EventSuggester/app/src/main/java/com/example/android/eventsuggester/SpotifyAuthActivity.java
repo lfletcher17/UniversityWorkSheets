@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.eventsuggester.Database.AppDatabase;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -51,6 +52,7 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private Location mAuthorisedAndroidLocation;
     private LocationManager mLocationManager;
     private FusedLocationProviderClient mFusedLocationClient;
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

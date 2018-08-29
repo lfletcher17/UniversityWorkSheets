@@ -19,5 +19,11 @@
     <string name="date">Date</string>
     <string name="ticket_info">Ticket Info</string>
     <string name="attend_event">Attend</string>
+    <string name="prev_month">Prev</string>
+    <string name="next_month">More Suggestions</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

@@ -11,14 +11,23 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.eventsuggester.Database.AppDatabase;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import kaaes.spotify.webapi.android.models.Artist;
@@ -34,8 +43,13 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
     private TextView mEventErrorMessageDisplay;
     private SpotifyHandler mSpotifyHandler;
 
+    private static final String MIN_DATE = "min date";
+    private static final String MAX_DATE = "max date";
+
     private RecyclerView mRecyclerView;
     private EventAdapter mEventAdapter;
+    private AppDatabase mDb;
+
 
 
     @Override
@@ -56,12 +70,26 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
         mEventAdapter = new EventAdapter(this);
         mRecyclerView.setAdapter(mEventAdapter);
 
+
         mEventErrorMessageDisplay = (TextView) findViewById(R.id.events_error_message_display);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.loading_indicator);
-
         mLoadingIndicator.setVisibility(View.VISIBLE);
 
-        getSupportLoaderManager().initLoader(EVENT_DATA_LOADERID, null, loaderCallbacks);
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.MONTH, 12);
+        Bundle queryBundle = new Bundle();
+        queryBundle.putLong(MIN_DATE, min.getTimeInMillis());
+        queryBundle.putLong(MAX_DATE, max.getTimeInMillis());
+
+        mDb = AppDatabase.getsInstance(getApplicationContext());
+
+        getSupportLoaderManager().initLoader(EVENT_DATA_LOADERID, queryBundle, loaderCallbacks);
+    }
+
+    public void loadMore () {
+        Toast toast = Toast.makeText(this, "loadMore", Toast.LENGTH_LONG);
+        toast.show();
     }
 
 
@@ -90,10 +118,11 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
         @Override
         public Loader<ArrayList<Event>> onCreateLoader(int id, Bundle args) {
             Context context = getApplicationContext();
-//            TODO figure out how to establish the Loader constructor variables - i.e. not hardcoded!!
             Calendar min = Calendar.getInstance();
+            min.setTimeInMillis(args.getLong(MIN_DATE));
             Calendar max = Calendar.getInstance();
-            max.add(Calendar.MONTH, 1);
+            max.setTimeInMillis(args.getLong(MAX_DATE));
+
             Boolean includeRelatedArtists = true;
 
             return new EventLoader(context, mSpotifyHandler, mlocationSkID, min, max, includeRelatedArtists);
