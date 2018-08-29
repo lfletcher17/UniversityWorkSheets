@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="SpotifyTheme" parent="AppTheme" >
@@ -18,10 +19,12 @@
         <item name="android:textColorSecondary">@color/SpotifyWhite</item>
         <item name="android:textColorSecondaryInverse">@color/SpotifyBlack</item>
         <item name="android:windowBackground">@color/SpotifyBlack</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="SpotifyThemeNew" parent="Theme.AppCompat.NoActionBar" >
         <item name="colorAccent">@color/SpotifyGreen</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
 </resources>

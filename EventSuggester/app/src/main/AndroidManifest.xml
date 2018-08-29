@@ -35,7 +35,10 @@
         <activity
             android:name=".SpotifyErrorActivity"
             android:theme="@style/SpotifyTheme" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/SpotifyTheme" />
+        <activity android:name=".MyEventsActivity"></activity>
     </application>
 
 </manifest>

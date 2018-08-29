@@ -45,6 +45,7 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
     private ProgressBar mLoadingIndicator;
     private TextView mEventErrorMessageDisplay;
     private SpotifyHandler mSpotifyHandler;
+    private Spinner mEventSpinner;
 
     private static final String MIN_DATE = "min date";
     private static final String MAX_DATE = "max date";
@@ -127,6 +128,9 @@ public class EventActivity extends AppCompatActivity implements EventAdapter.Eve
             Intent startSettings = new Intent(this, SettingsActivity.class);
             startActivity(startSettings);
             return true;
+        } else if (id == R.id.my_events) {
+            Toast toast = Toast.makeText(this, "loadMyEvents", Toast.LENGTH_LONG);
+            toast.show();
         }
         return super.onOptionsItemSelected(item);
     }

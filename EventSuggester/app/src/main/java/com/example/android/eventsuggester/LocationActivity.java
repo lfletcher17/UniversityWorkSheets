@@ -3,6 +3,8 @@ package com.example.android.eventsuggester;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -87,6 +89,13 @@ public class LocationActivity extends AppCompatActivity implements
 //        Toast.makeText(context, selectedLocation.toString(), Toast.LENGTH_SHORT)
 //                .show();
         mLocation = selectedLocation;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LocationActivity.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("location_id", String.valueOf(mLocation.getId()));
+        editor.putString("location_name", String.valueOf(mLocation.getCity()));
+        editor.apply();
+
         Context context = LocationActivity.this;
         Class destinationActivity = EventActivity.class;
         Intent eventIntent = new Intent (context, destinationActivity);

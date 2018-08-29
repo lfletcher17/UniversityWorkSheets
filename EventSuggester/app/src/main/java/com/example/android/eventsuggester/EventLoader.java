@@ -22,12 +22,10 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
 
     private SpotifyHandler mSpotifyHandler;
 
-//TODO locationID will be stored as a preference, will need to be retrieved as such
     private String mLocationSkID;
     private ArrayList<Event> cachedData;
     private Map<String, SpotifyArtist> mSpotifyArtists;
 
-//    TODO below field variables need to be established via constructor
     private Boolean includeRelatedArtists;
     private Calendar minDate;
     private Calendar maxDate;
@@ -52,7 +50,6 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
 
     }
 
-//    TODO find way of publishing progress to the UI?? Like progressUpdate() for AsyncTask
     @Override
     public ArrayList<Event> loadInBackground() {
 
@@ -74,14 +71,11 @@ public class EventLoader extends AsyncTaskLoader<ArrayList<Event>> {
             e.printStackTrace();
         }
 
-//        TODO figure out how to remove duplicates!! THINK ABOUT ADDING THE SPOTIFY ARTIST TO THE EVENT HERE?? AND UPDATE ADAPTER
-        //LOOP THE EVENTS AND SEE IF ANY HITS WITH ARTISTS
         for (Event result : allEvents) {
             for (SongKickArtist a : result.getPerformers()) {
                 if (mSpotifyArtists.containsKey(a.getName())) {
-//                    mSpotifyArtists.remove(a.getName());
-                    //ABOVE LINE SHOULD WORK
                     results.add(result);
+                    break;
                 }
             }
         }

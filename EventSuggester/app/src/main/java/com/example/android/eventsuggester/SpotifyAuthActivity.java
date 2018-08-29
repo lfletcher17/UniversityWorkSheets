@@ -2,10 +2,12 @@ package com.example.android.eventsuggester;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,7 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     private String mSpotifyToken;
     private Button mCurrentLocation;
     private Button mManualLocation;
+    private Boolean mChangeLocation = false;
 
     private TextView mLocationError;
     private TextView mDescription;
@@ -58,11 +61,15 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify_auth);
+
+        Intent intent = getIntent();
+        mChangeLocation = intent.getBooleanExtra("change_location", false);
+
         AuthenticationRequest.Builder builder = new AuthenticationRequest.Builder(SPOTIFY_CLIENT_ID, AuthenticationResponse.Type.TOKEN, SPOTIFY_REDIRECT_URI);
         builder.setScopes(new String[]{"user-read-private", "streaming", "user-follow-read", "user-top-read"});
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, SPOTIFY_REQUEST_CODE, request);
-//TODO add a loader / AsyncTask to pull back the user's information to personalise the app (with username etc.)
+
     }
 
     public void checkLocationPermission() {
@@ -130,6 +137,17 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
             if (response.getType() == AuthenticationResponse.Type.TOKEN) {
                 //FINE, THE APP CAN CONTINUE BUT WE NEED TO STORE THIS ACCESS TOKEN SOMEWHERE
                 mSpotifyToken = response.getAccessToken();
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SpotifyAuthActivity.this);
+
+                if (!sharedPreferences.getString("location_id", "null").equals("null") && mChangeLocation == false) {
+                    Context context = SpotifyAuthActivity.this;
+                    Class destinationActivity = EventActivity.class;
+                    Intent eventIntent = new Intent (context, destinationActivity);
+                    eventIntent.putExtra("skID", String.valueOf(sharedPreferences.getString("location_id", "null")));
+                    eventIntent.putExtra("spotifyToken", mSpotifyToken);
+                    startActivity(eventIntent);
+                }
 
                 mLocationError = (TextView) findViewById(R.id.location_error_message);
                 mDescription = (TextView) findViewById(R.id.location_desc);
@@ -240,6 +258,12 @@ public class SpotifyAuthActivity extends AppCompatActivity implements Connection
                     winningID = id;
                 }
             }
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SpotifyAuthActivity.this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("location_id", String.valueOf(winningID));
+            editor.putString("location_name", String.valueOf(locationResults.get(0).getCity()));
+            editor.apply();
 
             Context context = SpotifyAuthActivity.this;
             Class destinationActivity = EventActivity.class;

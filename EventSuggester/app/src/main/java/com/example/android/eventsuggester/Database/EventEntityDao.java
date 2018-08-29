@@ -13,6 +13,9 @@ public interface EventEntityDao {
     @Query("SELECT * FROM attended_event")
     List<EventEntity> loadAllEvents();
 
+    @Query("SELECT * FROM attended_event WHERE event_id == :eventID")
+    EventEntity loadEvent(String eventID);
+
     @Insert
     void insertEvent(EventEntity eventEntity);
 

@@ -85,6 +85,10 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
 
 
         mDb = AppDatabase.getsInstance(getApplicationContext());
+        if (mDb.eventEntityDao().loadEvent(String.valueOf(mEvent.getEventID())) != null){
+            mAddToCalendar.setAlpha(.5f);
+            mAddToCalendar.setClickable(false);
+        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_eventDetailsPerformers);
         LinearLayoutManager layoutManager
@@ -106,10 +110,7 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
         }
     }
 
-    //THIS ALL NEEDS TO BE ASYNCTASK
-//    TODO ammend code so that this actually adds event to users calendar and saves songkickID to DB
-    //TODO possible... if a user attends an event, the headliner should be stored in db as a favored artist? used first for related artists!!
-    //TODO remove duplicates from event activity
+    //TODO THIS ALL NEEDS TO BE ASYNCTASK
     public void addToCalendar () {
         EventEntity entity = new EventEntity(mEvent.getEventID());
         List<EventEntity> dbEvents = mDb.eventEntityDao().loadAllEvents();
@@ -173,13 +174,6 @@ public class EventDetailActivity extends AppCompatActivity implements EventPerfo
             openSpotify(s);
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.settings_menu, menu);
-//        return true;
-//    }
 
 
     @Override

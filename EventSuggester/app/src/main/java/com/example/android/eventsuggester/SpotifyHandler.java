@@ -1,6 +1,13 @@
 package com.example.android.eventsuggester;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,10 +23,13 @@ import kaaes.spotify.webapi.android.models.Artists;
 import kaaes.spotify.webapi.android.models.ArtistsCursorPager;
 import kaaes.spotify.webapi.android.models.ArtistsPager;
 import kaaes.spotify.webapi.android.models.Pager;
+import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.RetrofitError;
 
 public class SpotifyHandler {
 
+    private static final String SPOTIFY_CLIENT_ID = "9c7db37d947d41519f7148ad5076f76a";
+    private static final String SPOTIFY_REDIRECT_URI = "proto-login://callback";
     private static final String LONG_TERM = "long_term";
     private static final String MEDIUM_TERM = "medium_term";
     private static final String SHORT_TERM = "short_term";
@@ -188,6 +198,12 @@ public class SpotifyHandler {
         }
         return result.id;
     }
+
+    public String getUserName () {
+        UserPrivate user = mSpotify.getMe();
+        return user.display_name;
+    }
+
 
 
 
